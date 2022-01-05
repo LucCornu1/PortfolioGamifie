@@ -9,13 +9,43 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "State",
+"class": "CharacterIdleState",
+"language": "GDScript",
+"path": "res://Scenes/Player/States/Idle.gd"
+}, {
+"base": "State",
+"class": "CharacterMoveState",
+"language": "GDScript",
+"path": "res://Scenes/Player/States/Move.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "PlayerCharacter",
 "language": "GDScript",
 "path": "res://Scenes/Player/Player.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://Scenes/StateMachine/State.gd"
+}, {
+"base": "Label",
+"class": "StateLabel",
+"language": "GDScript",
+"path": "res://Scenes/StateMachine/StateLabel.gd"
+}, {
+"base": "State",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://Scenes/StateMachine/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"PlayerCharacter": ""
+"CharacterIdleState": "",
+"CharacterMoveState": "",
+"PlayerCharacter": "",
+"State": "",
+"StateLabel": "",
+"StateMachine": ""
 }
 
 [application]

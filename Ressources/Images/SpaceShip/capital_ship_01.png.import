@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/exhaust1.png-50a926c01311487243112da2a8d7eca4.stex"
+path="res://.import/capital_ship_01.png-5930c32d197e4c2fb8718e996c0a0f6e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Ressources/Images/SpaceShip/Exhaust/exhaust1.png"
-dest_files=[ "res://.import/exhaust1.png-50a926c01311487243112da2a8d7eca4.stex" ]
+source_file="res://Ressources/Images/SpaceShip/capital_ship_01.png"
+dest_files=[ "res://.import/capital_ship_01.png-5930c32d197e4c2fb8718e996c0a0f6e.stex" ]
 
 [params]
 
