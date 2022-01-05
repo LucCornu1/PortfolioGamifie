@@ -6,7 +6,9 @@ func get_class() -> String: return "PlayerCharacter"
 
 
 onready var character_sprite_node : Sprite = get_node("Sprite")
-onready var character_animated_sprite_node : AnimatedSprite = get_node("AnimatedSprite")
+onready var character_animated_sprite_node0 : AnimatedSprite = get_node("Thruster0")
+onready var character_animated_sprite_node1 : AnimatedSprite = get_node("Thruster1")
+onready var state_machine : Node = get_node("StateMachine")
 
 export(float) var movement_speed_X = 0.0 setget set_movement_speed_X, get_movement_speed_X
 signal movement_speed_X_changed()
@@ -25,11 +27,20 @@ signal facing_left_changed()
 
 # const acceleration : int = 30
 # const decceleration : int = 25
+const move_state_threshold : float = 20.0
 
 var dirLeft : int = 0
 var dirRight : int = 0
 var dirUp : int = 0
 var dirDown : int = 0
+
+
+## STATES
+export(String) var default_state = ""
+
+func set_state(value) -> void: state_machine.set_state(value)
+func get_state() -> Object: return state_machine.get_state()
+func get_state_name() -> String: return state_machine.get_state_name()
 
 
 #### ACCESSORS ####
@@ -77,13 +88,15 @@ func get_facing_left() -> bool:
 
 #### BUILT-IN ####
 func _ready() -> void:
+	# set_state("Idle")
+	
 	var __ = connect("movement_speed_X_changed", self, "_on_movement_speed_X_changed")
 	__ = connect("movement_speed_Y_changed", self, "_on_movement_speed_Y_changed")
 	__ = connect("moving_direction_changed", self, "_on_movement_direction_changed")
 	__ = connect("velocity_changed", self, "_on_velocity_changed")
 	__ = connect("facing_left_changed", self, "_on_facing_left_changed")
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	_compute_velocity()
 	_apply_movement()
 
@@ -102,7 +115,7 @@ func _apply_movement() -> void:
 
 # Flip the actor accordingly to the direction it is facing
 func flip():
-	if !is_instance_valid(character_sprite_node) || !is_instance_valid(character_animated_sprite_node):
+	if !is_instance_valid(character_sprite_node) || !is_instance_valid(character_animated_sprite_node0):
 		yield(self, "ready")
 	
 	# Flip the sprite
@@ -110,9 +123,14 @@ func flip():
 
 	# Flip the animated sprite
 	if facing_left:
-		character_animated_sprite_node.offset.x = abs(character_animated_sprite_node.offset.x)
+		character_animated_sprite_node0.offset.x = abs(character_animated_sprite_node0.offset.x)
+		character_animated_sprite_node1.offset.x = abs(character_animated_sprite_node1.offset.x)
 	else:
-		character_animated_sprite_node.offset.x = -abs(character_animated_sprite_node.offset.x)
+		character_animated_sprite_node0.offset.x = -abs(character_animated_sprite_node0.offset.x)
+		character_animated_sprite_node1.offset.x = -abs(character_animated_sprite_node1.offset.x)
+	
+	character_animated_sprite_node0.set_flip_h(facing_left)
+	character_animated_sprite_node1.set_flip_h(facing_left)
 
 
 #### INPUTS ####
