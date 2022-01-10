@@ -1,0 +1,126 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
+[ext_resource path="res://Ressources/Menu/HeroCard2.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "transition"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -513, 0 ), Vector2( -513, -100 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../TopLeft/ObjectDescription:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -225, 0 ), Vector2( 0, 0 ) ]
+}
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BottomMiddle/ObjectName")
+anims/transition = SubResource( 1 )
+
+[node name="BottomMiddle" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectName" type="TextureRect" parent="BottomMiddle"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -513.0
+margin_right = 513.0
+margin_bottom = 100.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="BottomMiddle/ObjectName"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.0
+margin_top = -7.0
+margin_right = 28.0
+margin_bottom = 7.0
+text = "None"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopLeft" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectDescription" type="TextureRect" parent="TopLeft"]
+margin_left = -225.0
+margin_right = 1.52588e-05
+margin_bottom = 491.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="TopLeft/ObjectDescription"]
+anchor_right = 1.0
+margin_top = 50.0
+margin_bottom = 64.0
+text = "Title"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="TopLeft/ObjectDescription"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -145.5
+margin_right = -2.0
+margin_bottom = -63.5
+text = "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

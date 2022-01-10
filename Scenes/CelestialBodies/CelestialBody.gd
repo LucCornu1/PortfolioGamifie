@@ -8,6 +8,9 @@ func get_class() -> String: return "CelestialBody"
 export(String) var body_name = "" setget set_body_name, get_body_name
 signal body_name_changed()
 
+export(String) var body_title = "" setget set_body_title, get_body_title
+signal body_title_changed()
+
 export(String) var body_description = "" setget set_body_description, get_body_description
 signal body_description_changed()
 
@@ -21,6 +24,14 @@ func set_body_name(new_name : String) -> void:
 func get_body_name() -> String:
 	return body_name
 
+func set_body_title(new_title : String) -> void:
+	if new_title != body_title:
+		body_title = new_title
+		emit_signal("body_title_changed")
+
+func get_body_title() -> String:
+	return body_title
+
 func set_body_description(new_description : String) -> void:
 	if new_description != body_description:
 		body_description = new_description
@@ -33,6 +44,7 @@ func get_body_description() -> String:
 #### BUILT-IN ####
 func _ready() -> void:
 	var __ = connect("body_name_changed", self, "_on_body_name_changed")
+	__ = connect("body_title_changed", self, "_on_body_title_changed")
 	__ = connect("body_description_changed", self, "_on_body_description_changed")
 
 
@@ -50,6 +62,9 @@ func _ready() -> void:
 
 #### SIGNAL RESPONSES ####
 func _on_body_name_changed() -> void:
+	pass
+
+func _on_body_title_changed() -> void:
 	pass
 
 func _on_body_description_changed() -> void:

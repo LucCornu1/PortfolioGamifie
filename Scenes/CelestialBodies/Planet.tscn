@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/CelestialBodies/CelestialBody.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/CelestialBodies/Planet.gd" type="Script" id=2]
+
+[node name="Planet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+body_name = ""

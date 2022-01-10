@@ -9,6 +9,8 @@ onready var character_sprite_node : Sprite = get_node("Sprite")
 onready var character_animated_sprite_node0 : AnimatedSprite = get_node("Thruster0")
 onready var character_animated_sprite_node1 : AnimatedSprite = get_node("Thruster1")
 onready var state_machine : Node = get_node("StateMachine")
+onready var player_hud_node : CanvasLayer = get_node("PlayerHUD")
+onready var interaction_area_node : Area2D = get_node("Area2D")
 
 export(float) var movement_speed_X = 0.0 setget set_movement_speed_X, get_movement_speed_X
 signal movement_speed_X_changed()
@@ -95,6 +97,8 @@ func _ready() -> void:
 	__ = connect("moving_direction_changed", self, "_on_movement_direction_changed")
 	__ = connect("velocity_changed", self, "_on_velocity_changed")
 	__ = connect("facing_left_changed", self, "_on_facing_left_changed")
+	__ = interaction_area_node.connect("area_entered", self, "_on_area_interaction_entered")
+	__ = interaction_area_node.connect("area_exited", self, "_on_area_interaction_exited")
 
 func _physics_process(_delta) -> void:
 	_compute_velocity()
@@ -206,3 +210,17 @@ func _on_velocity_changed() -> void:
 
 func _on_facing_left_changed() -> void:
 	pass
+
+func _on_area_interaction_entered(area : Area2D) -> void:
+	var object = area.owner
+	if is_instance_valid(object):
+		if object.is_class("CelestialBody"):
+			if player_hud_node.has_method("show_name"):
+				player_hud_node.show_name(object.get_body_name(), object.get_body_title(), object.get_body_description())
+
+func _on_area_interaction_exited(area : Area2D) -> void:
+	var object = area.owner
+	if is_instance_valid(object):
+		if object.is_class("CelestialBody"):
+			if player_hud_node.has_method("hide_name"):
+				player_hud_node.hide_name()
