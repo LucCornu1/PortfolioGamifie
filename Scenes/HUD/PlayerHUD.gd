@@ -45,3 +45,5 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 
 
 #### SIGNAL RESPONSES ####
+func _on_hyperspace_entered(value) -> void:
+	animation_player.play("WhiteFlash")

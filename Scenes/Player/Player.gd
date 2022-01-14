@@ -11,6 +11,7 @@ onready var character_animated_sprite_node1 : AnimatedSprite = get_node("Thruste
 onready var state_machine : Node = get_node("StateMachine")
 onready var player_hud_node : CanvasLayer = get_node("PlayerHUD")
 onready var interaction_area_node : Area2D = get_node("Area2D")
+onready var particles2D_node : CPUParticles2D = get_node("CPUParticles2D")
 
 export(float) var movement_speed_X = 0.0 setget set_movement_speed_X, get_movement_speed_X
 signal movement_speed_X_changed()
@@ -26,6 +27,9 @@ signal velocity_changed()
 
 var facing_left : bool = false setget set_facing_left, get_facing_left
 signal facing_left_changed()
+
+var in_hyperspace : bool = true setget set_in_hyperspace, get_in_hyperspace
+signal hyperspace_entered(value)
 
 # const acceleration : int = 30
 # const decceleration : int = 25
@@ -87,8 +91,16 @@ func set_facing_left(value : bool) -> void:
 func get_facing_left() -> bool:
 	return facing_left
 
+func set_in_hyperspace(value : bool) -> void:
+	if value != in_hyperspace:
+		in_hyperspace = value
+		emit_signal("hyperspace_entered", in_hyperspace)
 
-#### BUILT-IN ####
+func get_in_hyperspace() -> bool:
+	return in_hyperspace
+
+
+#### BUILT-IN ####	
 func _ready() -> void:
 	# set_state("Idle")
 	
@@ -99,6 +111,8 @@ func _ready() -> void:
 	__ = connect("facing_left_changed", self, "_on_facing_left_changed")
 	__ = interaction_area_node.connect("area_entered", self, "_on_area_interaction_entered")
 	__ = interaction_area_node.connect("area_exited", self, "_on_area_interaction_exited")
+	__ = connect("hyperspace_entered", self, "_on_hyperspace_entered")
+	__ = connect("hyperspace_entered", player_hud_node, "_on_hyperspace_entered")
 
 func _physics_process(_delta) -> void:
 	_compute_velocity()
@@ -129,9 +143,13 @@ func flip():
 	if facing_left:
 		character_animated_sprite_node0.offset.x = abs(character_animated_sprite_node0.offset.x)
 		character_animated_sprite_node1.offset.x = abs(character_animated_sprite_node1.offset.x)
+		particles2D_node.position.x = abs(particles2D_node.position.x)
+		particles2D_node.direction.x = abs(particles2D_node.direction.x)
 	else:
 		character_animated_sprite_node0.offset.x = -abs(character_animated_sprite_node0.offset.x)
 		character_animated_sprite_node1.offset.x = -abs(character_animated_sprite_node1.offset.x)
+		particles2D_node.position.x = -abs(particles2D_node.position.x)
+		particles2D_node.direction.x = -abs(particles2D_node.direction.x)
 	
 	character_animated_sprite_node0.set_flip_h(facing_left)
 	character_animated_sprite_node1.set_flip_h(facing_left)
@@ -144,16 +162,16 @@ func _input(event: InputEvent) -> void:
 	
 	var action_name : String = ""
 
-	if event.is_action_pressed("player_left"):
+	if event.is_action_pressed("player_left") && !in_hyperspace:
 		action_name = "MoveLeft_Pressed"
 	
-	elif event.is_action_released("player_left"):
+	elif event.is_action_released("player_left") && !in_hyperspace:
 		action_name = "MoveLeft_Released"
 	
-	elif event.is_action_pressed("player_right"):
+	elif event.is_action_pressed("player_right") && !in_hyperspace:
 		action_name = "MoveRight_Pressed"
 	
-	elif event.is_action_released("player_right"):
+	elif event.is_action_released("player_right") && !in_hyperspace:
 		action_name = "MoveRight_Released"
 	
 	elif event.is_action_pressed("player_up"):
@@ -215,12 +233,23 @@ func _on_area_interaction_entered(area : Area2D) -> void:
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
-			if player_hud_node.has_method("show_name"):
+			if area.get_name() == "Orbite":
+				set_in_hyperspace(false)
+			elif player_hud_node.has_method("show_name"):
 				player_hud_node.show_name(object.get_body_name(), object.get_body_title(), object.get_body_description())
 
 func _on_area_interaction_exited(area : Area2D) -> void:
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
-			if player_hud_node.has_method("hide_name"):
+			if area.get_name() == "Orbite":
+				set_in_hyperspace(true)
+			elif player_hud_node.has_method("hide_name"):
 				player_hud_node.hide_name()
+
+func _on_hyperspace_entered(value) -> void:
+	particles2D_node.set_emitting(value)
+	if !value:
+		dirLeft = 0
+		dirRight = 0
+		set_moving_direction(Vector2(dirRight - dirLeft, dirDown - dirUp))

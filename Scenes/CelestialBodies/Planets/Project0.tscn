@@ -524,7 +524,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=130]
-radius = 1018.91
+radius = 864.083
 
 [node name="GD_4501_A" instance=ExtResource( 1 )]
 body_name = "Project0"
@@ -535,7 +535,7 @@ body_description = "Blablablablablablablablablablablablabla"
 scale = Vector2( 5, 5 )
 frames = SubResource( 129 )
 animation = "Rotate"
-frame = 90
+frame = 102
 playing = true
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]

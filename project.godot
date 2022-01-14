@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/CelestialBodies/CelestialBody.gd"
 }, {
 "base": "State",
+"class": "CharacterHyperspaceState",
+"language": "GDScript",
+"path": "res://Scenes/Player/States/Hyperspace.gd"
+}, {
+"base": "State",
 "class": "CharacterIdleState",
 "language": "GDScript",
 "path": "res://Scenes/Player/States/Idle.gd"
@@ -23,6 +28,11 @@ _global_script_classes=[ {
 "class": "CharacterMoveState",
 "language": "GDScript",
 "path": "res://Scenes/Player/States/Move.gd"
+}, {
+"base": "Node2D",
+"class": "LevelBase",
+"language": "GDScript",
+"path": "res://Scenes/Levels/LevelBase.gd"
 }, {
 "base": "CelestialBody",
 "class": "Planet",
@@ -56,8 +66,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "CelestialBody": "",
+"CharacterHyperspaceState": "",
 "CharacterIdleState": "",
 "CharacterMoveState": "",
+"LevelBase": "",
 "Planet": "",
 "PlayerCharacter": "",
 "PlayerHUD": "",
@@ -69,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Portfolio Gamifie"
-run/main_scene="res://Scenes/Levels/Level_0.tscn"
+run/main_scene="res://Scenes/Levels/Level_01.tscn"
 config/icon="res://icon.png"
 
 [input]
