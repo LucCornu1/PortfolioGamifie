@@ -12,6 +12,8 @@ onready var state_machine : Node = get_node("StateMachine")
 onready var player_hud_node : CanvasLayer = get_node("PlayerHUD")
 onready var interaction_area_node : Area2D = get_node("Area2D")
 onready var particles2D_node : CPUParticles2D = get_node("CPUParticles2D")
+onready var hyperspace_enter_audio : AudioStreamPlayer = get_node("Audio/HyperspaceEnter")
+onready var hyperspace_exit_audio : AudioStreamPlayer = get_node("Audio/HyperspaceExit")
 
 export(float) var movement_speed_X = 0.0 setget set_movement_speed_X, get_movement_speed_X
 signal movement_speed_X_changed()
@@ -250,6 +252,9 @@ func _on_area_interaction_exited(area : Area2D) -> void:
 func _on_hyperspace_entered(value) -> void:
 	particles2D_node.set_emitting(value)
 	if !value:
+		hyperspace_exit_audio.play()
 		dirLeft = 0
 		dirRight = 0
 		set_moving_direction(Vector2(dirRight - dirLeft, dirDown - dirUp))
+	else:
+		hyperspace_enter_audio.play()

@@ -268,7 +268,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=52]
-radius = 1287.04
+radius = 1185.02
 
 [node name="CelestialBody" instance=ExtResource( 1 )]
 body_name = "GD 4501"
@@ -279,7 +279,7 @@ body_description = "Game Design"
 scale = Vector2( 10, 10 )
 frames = SubResource( 117 )
 animation = "Rotate"
-frame = 25
+frame = 36
 playing = true
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]

@@ -28,6 +28,8 @@ func exit_state():
 func update_state(_delta):
 	if abs(owner.velocity.x) <= owner.move_state_threshold:
 		return "Idle"
+	elif owner.in_hyperspace:
+		return "Hyperspace"
 
 #### LOGIC ####
 

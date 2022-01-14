@@ -26,7 +26,7 @@ func exit_state():
 # Called every frames, for real time behaviour
 # Use a return "State_node_name" or return Node_reference to change the current state of the state machine at a given time
 func update_state(_delta):
-	if !owner.particles2D_node.is_emitting():
+	if !owner.in_hyperspace:
 		return "Move"
 
 #### LOGIC ####
