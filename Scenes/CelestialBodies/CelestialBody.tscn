@@ -11,9 +11,9 @@ body_name = "Star"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Scanner" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scanner"]
 
 [node name="Orbite" type="Area2D" parent="."]
 

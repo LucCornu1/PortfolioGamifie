@@ -50,7 +50,7 @@ tracks/0/keys = {
 "values": [ Vector2( -513, 0 ), Vector2( -513, -100 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../TopLeft/ObjectDescription:rect_position")
+tracks/1/path = NodePath("../../TopLeft:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -62,12 +62,24 @@ tracks/1/keys = {
 "values": [ Vector2( -225, 0 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../../TopLeft/ObjectDescription:visible")
+tracks/2/path = NodePath("../../TopLeft:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -104,6 +116,7 @@ __meta__ = {
 }
 
 [node name="ObjectName" type="TextureRect" parent="BottomMiddle"]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -136,15 +149,16 @@ __meta__ = {
 }
 
 [node name="TopLeft" type="Control" parent="."]
-margin_right = 40.0
+visible = false
+margin_left = -225.0
+margin_right = -185.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ObjectDescription" type="Panel" parent="TopLeft"]
-margin_left = -225.0
-margin_right = 1.52588e-05
+margin_right = 225.0
 margin_bottom = 491.0
 theme = ExtResource( 3 )
 __meta__ = {
@@ -173,7 +187,7 @@ anchor_bottom = 0.5
 margin_left = 10.0
 margin_top = -145.5
 margin_right = -10.0
-margin_bottom = -63.5
+margin_bottom = 181.5
 custom_fonts/font = SubResource( 5 )
 text = "None
 "
@@ -186,8 +200,39 @@ __meta__ = {
 }
 
 [node name="ExploreButton" type="Panel" parent="TopLeft"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_top = 437.0
+margin_right = 224.0
+margin_bottom = 489.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="TopLeft/ExploreButton"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -13.5
+margin_bottom = 13.5
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopLeft/ExploreButton"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -26.0
+margin_right = 192.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 6 )
+text = "EXPLORE"
+align = 1
+valign = 1
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -204,6 +249,7 @@ __meta__ = {
 }
 
 [node name="Skip" type="Panel" parent="BottomRight"]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -243,7 +289,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TopRight" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image_0" type="TextureRect" parent="TopRight"]
+anchor_right = 1.0
+margin_left = -230.0
+margin_top = 81.0
+margin_right = -190.0
+margin_bottom = 121.0
+
+[node name="Image_1" type="TextureRect" parent="TopRight"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -248.0
+margin_top = 373.0
+margin_right = -208.0
+margin_bottom = 413.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image_2" type="TextureRect" parent="TopRight"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -118.0
+margin_top = 289.0
+margin_right = -78.0
+margin_bottom = 329.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="WhiteScreen" type="TextureRect" parent="."]
+visible = false
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -68,12 +68,14 @@ shape = SubResource( 1 )
 [node name="Thruster0" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 1
 playing = true
 offset = Vector2( -150, 2.5 )
 
 [node name="Thruster1" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 1
 playing = true
 offset = Vector2( -145, -16 )
 

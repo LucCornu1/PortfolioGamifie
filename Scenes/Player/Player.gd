@@ -42,6 +42,8 @@ var dirRight : int = 0
 var dirUp : int = 0
 var dirDown : int = 0
 
+var object_scan : CelestialBody = null
+
 
 ## STATES
 export(String) var default_state = ""
@@ -116,7 +118,7 @@ func _ready() -> void:
 	__ = connect("hyperspace_entered", self, "_on_hyperspace_entered")
 	__ = connect("hyperspace_entered", player_hud_node, "_on_hyperspace_entered")
 	__ = player_hud_node.connect("hyperspace_skipped", self, "_on_hyperspace_skipped")
-	__ = player_hud_node.connect("", self, "_on_planet_explored")
+	__ = player_hud_node.connect("planet_explored", self, "_on_planet_explored")
 
 func _physics_process(_delta) -> void:
 	_compute_velocity()
@@ -237,18 +239,20 @@ func _on_area_interaction_entered(area : Area2D) -> void:
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
+			object_scan = object
 			if area.get_name() == "Orbite":
 				set_in_hyperspace(false)
-			elif player_hud_node.has_method("show_name"):
+			elif area.get_name() == "Scanner":
 				player_hud_node.show_name(object.get_body_name(), object.get_body_title(), object.get_body_description())
 
 func _on_area_interaction_exited(area : Area2D) -> void:
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
+			object_scan = null
 			if area.get_name() == "Orbite":
 				set_in_hyperspace(true)
-			elif player_hud_node.has_method("hide_name"):
+			elif area.get_name() == "Scanner":
 				player_hud_node.hide_name()
 
 func _on_hyperspace_entered(value) -> void:
@@ -268,3 +272,11 @@ func _on_hyperspace_skipped() -> void:
 			set_position(Vector2(new_x + 3000, get_position().y))
 		else:
 			set_position(Vector2(new_x + 8500, get_position().y))
+
+func _on_planet_explored() -> void:
+	if is_instance_valid(object_scan):
+		if object_scan.is_class("Planet"):
+#			print(object_scan.get_ressource_path())
+			player_hud_node.show_planet_informations(object_scan.get_ressource_path_array())
+		else:
+			print("Nothing To Explore")

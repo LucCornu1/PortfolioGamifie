@@ -12,6 +12,7 @@ onready var title_label : Label = get_node("TopLeft/ObjectDescription/Title")
 onready var decription_label : Label = get_node("TopLeft/ObjectDescription/Description")
 onready var skip_panel : Panel = get_node("BottomRight/Skip")
 onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
+onready var top_right_node : Control = get_node("TopRight")
 
 signal hyperspace_skipped()
 signal planet_explored()
@@ -39,10 +40,23 @@ func show_name(name : String, title : String, description : String) -> void:
 
 func hide_name() -> void:
 	animation_player.play_backwards("transition")
+	hide_planet_informations()
 
 func set_label_text(new_text : String, label_node : Label) -> void:
 	if new_text != label_node.get_text():
 		label_node.set_text(new_text)
+
+func show_planet_informations(ressource_path_array : Array) -> void:
+	var children_array : Array = top_right_node.get_children()
+	for i in children_array.size():
+		children_array[i].set_visible(true)
+		children_array[i].texture = load(ressource_path_array[i])
+
+func hide_planet_informations() -> void:
+	var children_array : Array = top_right_node.get_children()
+	for i in children_array.size():
+		children_array[i].set_visible(false)
+		children_array[i].texture = load("")
 
 
 #### INPUTS ####

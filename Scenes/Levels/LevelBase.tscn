@@ -71,12 +71,12 @@ script = ExtResource( 2 )
 [node name="ParallaxForeground" type="ParallaxBackground" parent="."]
 layer = 1
 script = SubResource( 1 )
-hyperspace_motion = Vector2( 4, 1.2 )
+hyperspace_motion = Vector2( 8, 1.3 )
 normalspace_motion = Vector2( 1.1, 1.1 )
 
 [node name="Clouds" type="ParallaxLayer" parent="ParallaxForeground"]
 modulate = Color( 1, 1, 1, 0.823529 )
-motion_scale = Vector2( 4, 1.2 )
+motion_scale = Vector2( 10, 1.3 )
 motion_mirroring = Vector2( 6000, 2000 )
 
 [node name="SpaceBackground2" type="Sprite" parent="ParallaxForeground/Clouds"]
