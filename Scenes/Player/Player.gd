@@ -115,6 +115,8 @@ func _ready() -> void:
 	__ = interaction_area_node.connect("area_exited", self, "_on_area_interaction_exited")
 	__ = connect("hyperspace_entered", self, "_on_hyperspace_entered")
 	__ = connect("hyperspace_entered", player_hud_node, "_on_hyperspace_entered")
+	__ = player_hud_node.connect("hyperspace_skipped", self, "_on_hyperspace_skipped")
+	__ = player_hud_node.connect("", self, "_on_planet_explored")
 
 func _physics_process(_delta) -> void:
 	_compute_velocity()
@@ -258,3 +260,11 @@ func _on_hyperspace_entered(value) -> void:
 		set_moving_direction(Vector2(dirRight - dirLeft, dirDown - dirUp))
 	else:
 		hyperspace_enter_audio.play()
+
+func _on_hyperspace_skipped() -> void:
+	if in_hyperspace:
+		var new_x : float = int((get_position().x / 10000)) * 10000
+		if facing_left:
+			set_position(Vector2(new_x + 3000, get_position().y))
+		else:
+			set_position(Vector2(new_x + 8500, get_position().y))

@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/HUD/HUDTheme.tres" type="Theme" id=3]
+[ext_resource path="res://HUDTheme.tres" type="Theme" id=3]
 [ext_resource path="res://Ressources/Images/Backgrounds/White.png" type="Texture" id=4]
+[ext_resource path="res://Ressources/Menu/ArrowRight.png" type="Texture" id=5]
+[ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=6]
 
 [sub_resource type="Animation" id=2]
 resource_name = "WhiteFlash"
@@ -72,6 +74,18 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 6 )
+
 [node name="PlayerHUD" type="CanvasLayer"]
 script = ExtResource( 2 )
 
@@ -112,6 +126,7 @@ margin_left = -28.0
 margin_top = -7.0
 margin_right = 28.0
 margin_bottom = 7.0
+custom_fonts/font = SubResource( 3 )
 text = "None"
 align = 1
 valign = 1
@@ -128,7 +143,6 @@ __meta__ = {
 }
 
 [node name="ObjectDescription" type="Panel" parent="TopLeft"]
-visible = false
 margin_left = -225.0
 margin_right = 1.52588e-05
 margin_bottom = 491.0
@@ -139,8 +153,11 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="TopLeft/ObjectDescription"]
 anchor_right = 1.0
+margin_left = 10.0
 margin_top = 50.0
+margin_right = -10.0
 margin_bottom = 64.0
+custom_fonts/font = SubResource( 4 )
 text = "Title"
 align = 1
 valign = 1
@@ -153,10 +170,11 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 2.0
+margin_left = 10.0
 margin_top = -145.5
-margin_right = -2.0
+margin_right = -10.0
 margin_bottom = -63.5
+custom_fonts/font = SubResource( 5 )
 text = "None
 "
 align = 1
@@ -167,8 +185,66 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ExploreButton" type="Panel" parent="TopLeft"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomRight" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skip" type="Panel" parent="BottomRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -161.0
+margin_top = -61.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="BottomRight/Skip"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -13.5
+margin_bottom = 13.5
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BottomRight/Skip"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -30.5
+margin_right = 161.0
+margin_bottom = 30.5
+custom_fonts/font = SubResource( 6 )
+text = "SKIP"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="WhiteScreen" type="TextureRect" parent="."]
-modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
+modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
@@ -177,3 +253,6 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
+[connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
