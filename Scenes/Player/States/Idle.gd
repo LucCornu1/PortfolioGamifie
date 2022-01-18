@@ -27,8 +27,8 @@ func exit_state():
 # Use a return "State_node_name" or return Node_reference to change the current state of the state machine at a given time
 func update_state(_delta):
 	# Change state to move if the player is moving horizontaly
-	var horiz_movement = owner.get_velocity().x
-	if abs(horiz_movement) > owner.move_state_threshold:
+	var horiz_movement = owner.dirRight - owner.dirLeft
+	if horiz_movement != 0:
 		return "Move"
 
 #### LOGIC ####

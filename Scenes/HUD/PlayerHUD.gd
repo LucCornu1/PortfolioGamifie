@@ -13,6 +13,7 @@ onready var decription_label : Label = get_node("TopLeft/ObjectDescription/Descr
 onready var skip_panel : Panel = get_node("BottomRight/Skip")
 onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
 onready var top_right_node : Control = get_node("TopRight")
+onready var image_control_node : Control = get_node("TopRight/ImgControl")
 
 signal hyperspace_skipped()
 signal planet_explored()
@@ -47,16 +48,19 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 		label_node.set_text(new_text)
 
 func show_planet_informations(ressource_path_array : Array) -> void:
-	var children_array : Array = top_right_node.get_children()
+	var children_array : Array = image_control_node.get_children()
+	top_right_node.set_visible(true)
 	for i in children_array.size():
-		children_array[i].set_visible(true)
 		children_array[i].texture = load(ressource_path_array[i])
 
 func hide_planet_informations() -> void:
-	var children_array : Array = top_right_node.get_children()
+	var children_array : Array = image_control_node.get_children()
+	top_right_node.set_visible(false)
 	for i in children_array.size():
-		children_array[i].set_visible(false)
 		children_array[i].texture = load("")
+
+func show_explore_button(value : bool) -> void:
+	explore_button_panel.set_visible(value)
 
 
 #### INPUTS ####

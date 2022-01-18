@@ -30,6 +30,7 @@ position = Vector2( 1000, 1000 )
 
 [node name="GD_4501_A" parent="CelestialObjects" index="1" instance=ExtResource( 2 )]
 position = Vector2( 10000, 1000 )
+ressource_path_array = [ "res://Ressources/Project_Images/Img1.png", "res://Ressources/Project_Images/Img2.png", "res://Ressources/Project_Images/Img3.png" ]
 
 [node name="LevelBackgroundMusic" parent="." index="4"]
 stream = ExtResource( 7 )

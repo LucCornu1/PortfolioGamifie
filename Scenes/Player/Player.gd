@@ -8,6 +8,7 @@ func get_class() -> String: return "PlayerCharacter"
 onready var character_sprite_node : Sprite = get_node("Sprite")
 onready var character_animated_sprite_node0 : AnimatedSprite = get_node("Thruster0")
 onready var character_animated_sprite_node1 : AnimatedSprite = get_node("Thruster1")
+onready var character_camera2D_node : Camera2D = get_node("Camera2D")
 onready var state_machine : Node = get_node("StateMachine")
 onready var player_hud_node : CanvasLayer = get_node("PlayerHUD")
 onready var interaction_area_node : Area2D = get_node("Area2D")
@@ -26,6 +27,9 @@ signal moving_direction_changed()
 
 var velocity : Vector2 = Vector2.ZERO setget set_velocity, get_velocity
 signal velocity_changed()
+
+var target_velocity : Vector2 = Vector2.ZERO setget set_target_velocity, get_target_velocity
+signal target_velocity_changed()
 
 var facing_left : bool = false setget set_facing_left, get_facing_left
 signal facing_left_changed()
@@ -86,6 +90,14 @@ func set_velocity(new_velocity : Vector2) -> void:
 func get_velocity() -> Vector2:
 	return velocity
 
+func set_target_velocity(new_velocity : Vector2) -> void:
+	if new_velocity != target_velocity:
+		target_velocity = new_velocity
+		emit_signal("target_velocity_changed")
+
+func get_target_velocity() -> Vector2:
+	return target_velocity
+
 func set_facing_left(value : bool) -> void:
 	if value != facing_left:
 		facing_left = value
@@ -106,8 +118,6 @@ func get_in_hyperspace() -> bool:
 
 #### BUILT-IN ####	
 func _ready() -> void:
-	# set_state("Idle")
-	
 	var __ = connect("movement_speed_X_changed", self, "_on_movement_speed_X_changed")
 	__ = connect("movement_speed_Y_changed", self, "_on_movement_speed_Y_changed")
 	__ = connect("moving_direction_changed", self, "_on_movement_direction_changed")
@@ -121,8 +131,9 @@ func _ready() -> void:
 	__ = player_hud_node.connect("planet_explored", self, "_on_planet_explored")
 
 func _physics_process(_delta) -> void:
-	_compute_velocity()
+	_compute_velocity(_delta)
 	_apply_movement()
+	keep_player_on_screen()
 
 
 #### VIRTUALS ####
@@ -130,12 +141,24 @@ func _physics_process(_delta) -> void:
 
 
 #### LOGIC ####
-func _compute_velocity() -> void:
-	set_velocity(Vector2(moving_direction.x * movement_speed_X, moving_direction.y * movement_speed_Y))
+func _compute_velocity(_delta : float) -> void:
+	set_target_velocity(Vector2(moving_direction.x * movement_speed_X, moving_direction.y * movement_speed_Y))
+	set_velocity(get_velocity().linear_interpolate(target_velocity, _delta * 0.5))
 
 func _apply_movement() -> void:
 	if velocity != Vector2.ZERO:
 		set_velocity(move_and_slide(velocity, Vector2.UP, false, 20, deg2rad(46), false))
+
+func keep_player_on_screen() -> void:
+	position.x = clamp(position.x, character_camera2D_node.limit_left, character_camera2D_node.limit_right)
+	position.y = clamp(position.y, character_camera2D_node.limit_top, character_camera2D_node.limit_bottom)
+	
+	if position.x == character_camera2D_node.limit_left || position.x == character_camera2D_node.limit_right:
+		velocity.x = 0
+		target_velocity.x = 0
+	elif position.y == character_camera2D_node.limit_top || position.y == character_camera2D_node.limit_bottom:
+		velocity.y = 0
+		target_velocity.y = 0
 
 # Flip the actor accordingly to the direction it is facing
 func flip():
@@ -244,6 +267,10 @@ func _on_area_interaction_entered(area : Area2D) -> void:
 				set_in_hyperspace(false)
 			elif area.get_name() == "Scanner":
 				player_hud_node.show_name(object.get_body_name(), object.get_body_title(), object.get_body_description())
+				if object.is_class("Planet"):
+					player_hud_node.show_explore_button(true)
+				else:
+					player_hud_node.show_explore_button(false)
 
 func _on_area_interaction_exited(area : Area2D) -> void:
 	var object = area.owner

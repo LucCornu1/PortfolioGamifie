@@ -26,7 +26,7 @@ func exit_state():
 # Called every frames, for real time behaviour
 # Use a return "State_node_name" or return Node_reference to change the current state of the state machine at a given time
 func update_state(_delta):
-	if abs(owner.velocity.x) <= owner.move_state_threshold:
+	if (owner.dirRight - owner.dirLeft) == 0:
 		return "Idle"
 	elif owner.in_hyperspace:
 		return "Hyperspace"
