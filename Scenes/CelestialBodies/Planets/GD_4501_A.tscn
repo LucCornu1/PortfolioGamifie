@@ -533,5 +533,5 @@ ressource_path_array = [ "res://Ressources/Images/SpaceShip/capital_ship_01.png"
 scale = Vector2( 5, 5 )
 frames = SubResource( 129 )
 animation = "Rotate"
-frame = 68
+frame = 19
 playing = true

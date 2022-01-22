@@ -57,7 +57,7 @@ func hide_planet_informations() -> void:
 	var children_array : Array = image_control_node.get_children()
 	top_right_node.set_visible(false)
 	for i in children_array.size():
-		children_array[i].texture = load("")
+		children_array[i].texture = null
 
 func show_explore_button(value : bool) -> void:
 	explore_button_panel.set_visible(value)
