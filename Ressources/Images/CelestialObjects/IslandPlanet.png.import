@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/948919010.png-13b392d1dbd864f0f1158234438a5edc.stex"
+path="res://.import/IslandPlanet.png-5c11ebeb2729ae98ace98b9ff44ff0dc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Ressources/Images/CelestialObjects/948919010.png"
-dest_files=[ "res://.import/948919010.png-13b392d1dbd864f0f1158234438a5edc.stex" ]
+source_file="res://Ressources/Images/CelestialObjects/IslandPlanet.png"
+dest_files=[ "res://.import/IslandPlanet.png-5c11ebeb2729ae98ace98b9ff44ff0dc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

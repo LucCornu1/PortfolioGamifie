@@ -1,11 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
-[ext_resource path="res://HUDTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Scenes/Objects/HUDTheme.tres" type="Theme" id=3]
 [ext_resource path="res://Ressources/Images/Backgrounds/White.png" type="Texture" id=4]
 [ext_resource path="res://Ressources/Menu/ArrowRight.png" type="Texture" id=5]
 [ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/HUD/HUD2Theme.tres" type="Theme" id=7]
+[ext_resource path="res://Scenes/HUD/HUDTheme.tres" type="Theme" id=8]
+
+[sub_resource type="Animation" id=7]
+resource_name = "ChangeSystem"
+length = 0.1
 
 [sub_resource type="Animation" id=2]
 resource_name = "WhiteFlash"
@@ -47,7 +53,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -513, 0 ), Vector2( -513, -100 ) ]
+"values": [ Vector2( -960, 0 ), Vector2( -960, -140 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../../TopLeft:rect_position")
@@ -59,7 +65,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -225, 0 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( -300, 0 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../../TopLeft:visible")
@@ -87,15 +93,23 @@ tracks/3/keys = {
 }
 
 [sub_resource type="DynamicFont" id=3]
+size = 32
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 32
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=5]
+size = 20
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
 font_data = ExtResource( 6 )
 
 [node name="PlayerHUD" type="CanvasLayer"]
@@ -103,6 +117,7 @@ script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../BottomMiddle/ObjectName")
+anims/ChangeSystem = SubResource( 7 )
 anims/WhiteFlash = SubResource( 2 )
 anims/transition = SubResource( 1 )
 
@@ -121,9 +136,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -513.0
-margin_right = 513.0
-margin_bottom = 100.0
+margin_left = -960.0
+margin_right = 960.0
+margin_bottom = 140.0
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -135,10 +150,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -28.0
-margin_top = -7.0
-margin_right = 28.0
-margin_bottom = 7.0
+margin_left = -108.0
+margin_top = -37.0
+margin_right = 108.0
+margin_bottom = 44.0
 custom_fonts/font = SubResource( 3 )
 text = "None"
 align = 1
@@ -150,16 +165,16 @@ __meta__ = {
 
 [node name="TopLeft" type="Control" parent="."]
 visible = false
-margin_left = -225.0
-margin_right = -185.0
+margin_left = -300.0
+margin_right = -260.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ObjectDescription" type="Panel" parent="TopLeft"]
-margin_right = 225.0
-margin_bottom = 491.0
+margin_right = 300.0
+margin_bottom = 600.0
 theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -194,16 +209,15 @@ text = "None
 align = 1
 valign = 1
 autowrap = true
-uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ExploreButton" type="Panel" parent="TopLeft"]
-margin_top = 437.0
-margin_right = 224.0
-margin_bottom = 489.0
-theme = ExtResource( 3 )
+margin_top = 532.0
+margin_right = 300.0
+margin_bottom = 607.0
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -225,9 +239,9 @@ __meta__ = {
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 10.0
-margin_top = -26.0
-margin_right = 192.0
-margin_bottom = 26.0
+margin_top = -37.5
+margin_right = 268.0
+margin_bottom = 37.5
 custom_fonts/font = SubResource( 6 )
 text = "EXPLORE"
 align = 1
@@ -254,9 +268,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -161.0
-margin_top = -61.0
-theme = ExtResource( 3 )
+margin_left = -260.0
+margin_top = -106.0
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -277,9 +291,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="BottomRight/Skip"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -30.5
-margin_right = 161.0
-margin_bottom = 30.5
+margin_top = -53.0
+margin_right = 220.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 6 )
 text = "SKIP"
 align = 1
@@ -348,6 +362,93 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Center" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -234.0
+margin_top = -99.0
+margin_right = 234.0
+margin_bottom = 65.0
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel"]
+margin_left = 5.0
+margin_top = 10.0
+margin_right = 446.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 8 )
+text = "Change stellar system"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Panel" parent="Center/Panel"]
+margin_left = 50.0
+margin_top = 80.0
+margin_right = 200.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel/No"]
+margin_right = 150.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "No"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="Panel" parent="Center/Panel"]
+margin_left = 268.0
+margin_top = 80.0
+margin_right = 418.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 50 )
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel/Yes"]
+margin_right = 150.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "Yes"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="WhiteScreen" type="TextureRect" parent="."]
 visible = false
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
@@ -362,3 +463,5 @@ __meta__ = {
 
 [connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
 [connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
+[connection signal="gui_input" from="Center/Panel/No" to="." method="_on_no_button_gui_input"]
+[connection signal="gui_input" from="Center/Panel/Yes" to="." method="_on_yes_button_gui_input"]

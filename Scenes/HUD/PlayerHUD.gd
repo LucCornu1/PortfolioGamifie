@@ -14,6 +14,7 @@ onready var skip_panel : Panel = get_node("BottomRight/Skip")
 onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
 onready var top_right_node : Control = get_node("TopRight")
 onready var image_control_node : Control = get_node("TopRight/ImgControl")
+onready var center_control_node : Control = get_node("Center")
 
 signal hyperspace_skipped()
 signal planet_explored()
@@ -62,15 +63,26 @@ func hide_planet_informations() -> void:
 func show_explore_button(value : bool) -> void:
 	explore_button_panel.set_visible(value)
 
+func show_change_system_panel(value : bool) -> void:
+	center_control_node.set_visible(value)
+
 
 #### INPUTS ####
 func _on_skip_panel_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") && skip_panel.is_visible():
 		emit_signal("hyperspace_skipped")
 
-func _on_explore_button_gui_input(event):
+func _on_explore_button_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") && explore_button_panel.is_visible():
 		emit_signal("planet_explored")
+
+func _on_no_button_gui_input(event : InputEvent) -> void:
+	if event.is_action_pressed("left_click") && center_control_node.is_visible():
+		center_control_node.set_visible(false)
+
+func _on_yes_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click") && center_control_node.is_visible():
+		get_tree().change_scene("res://Scenes/Levels/Galaxy/GalaxyMap.tscn")
 
 
 #### SIGNAL RESPONSES ####

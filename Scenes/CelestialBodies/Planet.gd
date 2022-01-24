@@ -5,11 +5,15 @@ func is_class(value: String): return value == "Planet" or .is_class(value)
 func get_class() -> String: return "Planet"
 
 
+onready var animated_sprite_node : AnimatedSprite = get_node("AnimatedSprite")
+
 export(Array) var ressource_path_array setget set_ressource_path_array, get_ressource_path_array
 signal ressource_path_array_changed()
 
 export(String) var link = "" setget set_link, get_link
 signal link_changed()
+
+export(String, "Lava", "Dry", "Island", "Terran", "Ice") var biome = "Terran"
 
 
 # Setters & Getters need to be defined in order for an exported variable to work
@@ -32,7 +36,8 @@ func get_link() -> String:
 
 
 #### BUILT-IN ####
-
+func _ready() -> void:
+	change_animation()
 
 
 #### VIRTUALS ####
@@ -40,7 +45,8 @@ func get_link() -> String:
 
 
 #### LOGIC ####
-
+func change_animation() -> void:
+	animated_sprite_node.play(biome)
 
 
 #### INPUTS ####

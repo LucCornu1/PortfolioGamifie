@@ -37,6 +37,9 @@ signal facing_left_changed()
 var in_hyperspace : bool = true setget set_in_hyperspace, get_in_hyperspace
 signal hyperspace_entered(value)
 
+var on_edge : bool = false setget set_on_edge, get_on_edge
+signal edge_entered()
+
 # const acceleration : int = 30
 # const decceleration : int = 25
 const move_state_threshold : float = 20.0
@@ -115,6 +118,14 @@ func set_in_hyperspace(value : bool) -> void:
 func get_in_hyperspace() -> bool:
 	return in_hyperspace
 
+func set_on_edge(value : bool) -> void:
+	if value != on_edge:
+		on_edge = value
+		emit_signal("edge_entered")
+
+func get_on_edge() -> bool:
+	return on_edge
+
 
 #### BUILT-IN ####	
 func _ready() -> void:
@@ -129,6 +140,7 @@ func _ready() -> void:
 	__ = connect("hyperspace_entered", player_hud_node, "_on_hyperspace_entered")
 	__ = player_hud_node.connect("hyperspace_skipped", self, "_on_hyperspace_skipped")
 	__ = player_hud_node.connect("planet_explored", self, "_on_planet_explored")
+	__ = connect("edge_entered", self, "_on_edge_entered")
 
 func _physics_process(_delta) -> void:
 	_compute_velocity(_delta)
@@ -156,12 +168,16 @@ func keep_player_on_screen() -> void:
 	if position.x == character_camera2D_node.limit_left || position.x == character_camera2D_node.limit_right:
 		velocity.x = 0
 		target_velocity.x = 0
+		set_on_edge(true)
 	elif position.y == character_camera2D_node.limit_top || position.y == character_camera2D_node.limit_bottom:
 		velocity.y = 0
 		target_velocity.y = 0
+		set_on_edge(true)
+	else:
+		set_on_edge(false)
 
 # Flip the actor accordingly to the direction it is facing
-func flip():
+func flip() -> void:
 	if !is_instance_valid(character_sprite_node) || !is_instance_valid(character_animated_sprite_node0):
 		yield(self, "ready")
 	
@@ -170,18 +186,24 @@ func flip():
 
 	# Flip the animated sprite
 	if facing_left:
-		character_animated_sprite_node0.offset.x = abs(character_animated_sprite_node0.offset.x)
-		character_animated_sprite_node1.offset.x = abs(character_animated_sprite_node1.offset.x)
+		character_animated_sprite_node0.position.x = abs(character_animated_sprite_node0.position.x)
+		character_animated_sprite_node1.position.x = abs(character_animated_sprite_node1.position.x)
 		particles2D_node.position.x = abs(particles2D_node.position.x)
 		particles2D_node.direction.x = abs(particles2D_node.direction.x)
 	else:
-		character_animated_sprite_node0.offset.x = -abs(character_animated_sprite_node0.offset.x)
-		character_animated_sprite_node1.offset.x = -abs(character_animated_sprite_node1.offset.x)
+		character_animated_sprite_node0.position.x = -abs(character_animated_sprite_node0.position.x)
+		character_animated_sprite_node1.position.x = -abs(character_animated_sprite_node1.position.x)
 		particles2D_node.position.x = -abs(particles2D_node.position.x)
 		particles2D_node.direction.x = -abs(particles2D_node.direction.x)
 	
 	character_animated_sprite_node0.set_flip_h(facing_left)
 	character_animated_sprite_node1.set_flip_h(facing_left)
+
+func set_hyperspace_direction(going_left : bool) -> void:
+	if going_left:
+		set_moving_direction(Vector2(-1, 0))
+	else:
+		set_moving_direction(Vector2(1, 0))
 
 
 #### INPUTS ####
@@ -259,6 +281,9 @@ func _on_facing_left_changed() -> void:
 	pass
 
 func _on_area_interaction_entered(area : Area2D) -> void:
+	if !is_instance_valid(area):
+		return
+	
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
@@ -273,6 +298,9 @@ func _on_area_interaction_entered(area : Area2D) -> void:
 					player_hud_node.show_explore_button(false)
 
 func _on_area_interaction_exited(area : Area2D) -> void:
+	if !is_instance_valid(area):
+		return
+	
 	var object = area.owner
 	if is_instance_valid(object):
 		if object.is_class("CelestialBody"):
@@ -290,6 +318,7 @@ func _on_hyperspace_entered(value) -> void:
 		dirRight = 0
 		set_moving_direction(Vector2(dirRight - dirLeft, dirDown - dirUp))
 	else:
+		set_hyperspace_direction(get_facing_left())
 		hyperspace_enter_audio.play()
 
 func _on_hyperspace_skipped() -> void:
@@ -307,3 +336,6 @@ func _on_planet_explored() -> void:
 			player_hud_node.show_planet_informations(object_scan.get_ressource_path_array())
 		else:
 			print("Nothing To Explore")
+
+func _on_edge_entered() -> void:
+	player_hud_node.show_change_system_panel(get_on_edge())

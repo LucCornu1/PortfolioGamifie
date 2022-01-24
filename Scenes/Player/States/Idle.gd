@@ -28,7 +28,9 @@ func exit_state():
 func update_state(_delta):
 	# Change state to move if the player is moving horizontaly
 	var horiz_movement = owner.dirRight - owner.dirLeft
-	if horiz_movement != 0:
+	if owner.in_hyperspace:
+			return "Hyperspace"
+	elif horiz_movement != 0:
 		return "Move"
 
 #### LOGIC ####
