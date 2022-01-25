@@ -13,7 +13,8 @@ signal ressource_path_array_changed()
 export(String) var link = "" setget set_link, get_link
 signal link_changed()
 
-export(String, "Lava", "Dry", "Island", "Terran", "Ice", "MotherLand") var biome = "Terran"
+export(String, "Lava", "Dry", "Island", "Terran", "Ice", "MotherLand", "None") var biome = "Terran" setget set_biome, get_biome
+signal biome_changed()
 
 
 # Setters & Getters need to be defined in order for an exported variable to work
@@ -34,10 +35,20 @@ func set_link(new_link : String) -> void:
 func get_link() -> String:
 	return link
 
+func set_biome(new_biome : String) -> void:
+	if new_biome != biome:
+		biome = new_biome
+		emit_signal("biome_changed")
+
+func get_biome() -> String:
+	return biome
+
 
 #### BUILT-IN ####
 func _ready() -> void:
 	change_animation()
+	
+	var __ = connect("biome_changed", self, "_on_biome_changed")
 
 
 #### VIRTUALS ####
@@ -54,3 +65,5 @@ func change_animation() -> void:
 
 
 #### SIGNAL RESPONSES ####
+func _on_biome_changed() -> void:
+	change_animation()

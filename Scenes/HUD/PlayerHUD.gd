@@ -15,9 +15,12 @@ onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
 onready var top_right_node : Control = get_node("TopRight")
 onready var image_control_node : Control = get_node("TopRight/ImgControl")
 onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
+onready var colonize_button : Panel = get_node("TopRight/Colonize")
+onready var destroy_button : Panel = get_node("TopRight/Destroy")
 onready var center_control_node : Control = get_node("Center")
 
-var link : String = ""
+var planet : Planet = null
+var destroy_mode : bool = false
 
 signal hyperspace_skipped()
 signal planet_explored()
@@ -54,23 +57,27 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 func show_planet_informations(object_scan : Planet) -> void:
 	var ressource_path_array : Array = object_scan.get_ressource_path_array()
 	var children_array : Array = image_control_node.get_children()
-	link = object_scan.get_link()
-	if link == "":
+	planet = object_scan
+	if planet.get_link() == "":
 		image_itch_node.set_visible(false)
+		if planet.get_biome() != "None":
+			destroy_button.set_visible(true)
+		if planet.get_biome() != "MotherLand":
+			colonize_button.set_visible(true)
 	else:
 		image_itch_node.set_visible(true)
+		destroy_button.set_visible(false)
+		colonize_button.set_visible(false)
 	
 	top_right_node.set_visible(true)
-	
 	for i in children_array.size():
 		if ResourceLoader.exists(ressource_path_array[i]):
 			children_array[i].texture = load(ressource_path_array[i])
 
 func hide_planet_informations() -> void:
 	var children_array : Array = image_control_node.get_children()
-	link = ""
-	top_right_node.set_visible(false)
 	
+	top_right_node.set_visible(false)
 	for i in children_array.size():
 		children_array[i].texture = null
 
@@ -79,6 +86,12 @@ func show_explore_button(value : bool) -> void:
 
 func show_change_system_panel(value : bool) -> void:
 	center_control_node.set_visible(value)
+
+func colonize_planet() -> void:
+	if destroy_mode:
+		planet.set_biome("None")
+	else:
+		planet.set_biome("MotherLand")
 
 
 #### INPUTS ####
@@ -100,7 +113,21 @@ func _on_yes_button_gui_input(event: InputEvent) -> void:
 
 func _on_itch_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click") and image_itch_node.is_visible():
-		OS.shell_open(link)
+		OS.shell_open(planet.get_link())
+		if planet.get_biome() != "None":
+			destroy_button.set_visible(true)
+		if planet.get_biome() != "MotherLand":
+			colonize_button.set_visible(true)
+
+func _on_colonize_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click") and colonize_button:
+		destroy_mode = false
+		animation_player.play("BigShake")
+
+func _on_destroy_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click") and destroy_button:
+		destroy_mode = true
+		animation_player.play("BigShake")
 
 
 #### SIGNAL RESPONSES ####

@@ -26,6 +26,7 @@ position = Vector2( 2400, 1000 )
 body_name = "Drifting Motherland"
 body_title = "Welcome !"
 body_description = "Welcome to my portfolio ! To learn more about this game, click \"Explore\"."
+link = "https://tempusfugit6.itch.io/"
 biome = "MotherLand"
 
 [node name="Keys" type="Node2D" parent="." index="3"]
@@ -61,6 +62,9 @@ animation = "Q"
 
 [node name="D" parent="Keys/Panel" index="3" instance=ExtResource( 5 )]
 position = Vector2( 300, 200 )
+
+[node name="AnimatedSprite" parent="Keys/Panel/D" index="0"]
+animation = "D"
 
 [node name="PlayerCharacter" parent="." index="4"]
 position = Vector2( 487, 992 )
