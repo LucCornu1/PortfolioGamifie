@@ -14,7 +14,10 @@ onready var skip_panel : Panel = get_node("BottomRight/Skip")
 onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
 onready var top_right_node : Control = get_node("TopRight")
 onready var image_control_node : Control = get_node("TopRight/ImgControl")
+onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
 onready var center_control_node : Control = get_node("Center")
+
+var link : String = ""
 
 signal hyperspace_skipped()
 signal planet_explored()
@@ -48,15 +51,26 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 	if new_text != label_node.get_text():
 		label_node.set_text(new_text)
 
-func show_planet_informations(ressource_path_array : Array) -> void:
+func show_planet_informations(object_scan : Planet) -> void:
+	var ressource_path_array : Array = object_scan.get_ressource_path_array()
 	var children_array : Array = image_control_node.get_children()
+	link = object_scan.get_link()
+	if link == "":
+		image_itch_node.set_visible(false)
+	else:
+		image_itch_node.set_visible(true)
+	
 	top_right_node.set_visible(true)
+	
 	for i in children_array.size():
-		children_array[i].texture = load(ressource_path_array[i])
+		if ResourceLoader.exists(ressource_path_array[i]):
+			children_array[i].texture = load(ressource_path_array[i])
 
 func hide_planet_informations() -> void:
 	var children_array : Array = image_control_node.get_children()
+	link = ""
 	top_right_node.set_visible(false)
+	
 	for i in children_array.size():
 		children_array[i].texture = null
 
@@ -69,20 +83,24 @@ func show_change_system_panel(value : bool) -> void:
 
 #### INPUTS ####
 func _on_skip_panel_gui_input(event : InputEvent) -> void:
-	if event.is_action_pressed("left_click") && skip_panel.is_visible():
+	if event.is_action_pressed("left_click") and skip_panel.is_visible():
 		emit_signal("hyperspace_skipped")
 
 func _on_explore_button_gui_input(event : InputEvent) -> void:
-	if event.is_action_pressed("left_click") && explore_button_panel.is_visible():
+	if event.is_action_pressed("left_click") and explore_button_panel.is_visible():
 		emit_signal("planet_explored")
 
 func _on_no_button_gui_input(event : InputEvent) -> void:
-	if event.is_action_pressed("left_click") && center_control_node.is_visible():
+	if event.is_action_pressed("left_click") and center_control_node.is_visible():
 		center_control_node.set_visible(false)
 
 func _on_yes_button_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click") && center_control_node.is_visible():
+	if event.is_action_pressed("left_click") and center_control_node.is_visible():
 		get_tree().change_scene("res://Scenes/Levels/Galaxy/GalaxyMap.tscn")
+
+func _on_itch_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click") and image_itch_node.is_visible():
+		OS.shell_open(link)
 
 
 #### SIGNAL RESPONSES ####

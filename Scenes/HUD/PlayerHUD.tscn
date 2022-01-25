@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://Scenes/HUD/HUD2Theme.tres" type="Theme" id=7]
 [ext_resource path="res://Scenes/HUD/HUDTheme.tres" type="Theme" id=8]
+[ext_resource path="res://Ressources/Menu/itch.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=7]
 resource_name = "ChangeSystem"
@@ -304,7 +305,6 @@ __meta__ = {
 }
 
 [node name="TopRight" type="Control" parent="."]
-visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 __meta__ = {
@@ -312,7 +312,7 @@ __meta__ = {
 }
 
 [node name="Background_Image" type="Panel" parent="TopRight"]
-margin_left = -665.0
+margin_left = -1068.0
 margin_right = 1.0
 margin_bottom = 600.0
 theme = ExtResource( 3 )
@@ -324,40 +324,74 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Image_2" type="TextureRect" parent="TopRight/ImgControl"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -540.0
-margin_top = 350.0
-margin_right = -140.0
-margin_bottom = 550.0
-expand = true
-stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Image_0" type="TextureRect" parent="TopRight/ImgControl"]
 anchor_right = 1.0
-margin_left = -500.0
+margin_left = -994.0
 margin_top = 50.0
-margin_right = -140.0
-margin_bottom = 250.0
+margin_right = -134.0
+margin_bottom = 500.0
 expand = true
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image_1" type="TextureRect" parent="TopRight/ImgControl"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -597.0
-margin_top = 200.0
-margin_right = -197.0
-margin_bottom = 400.0
+[node name="Itchio" type="TextureRect" parent="TopRight"]
+margin_left = -1304.0
+margin_right = -1097.0
+margin_bottom = 207.0
+texture = ExtResource( 9 )
 expand = true
-stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colonize" type="Panel" parent="TopRight"]
+margin_left = -400.0
+margin_top = 700.0
+margin_right = -150.0
+margin_bottom = 800.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopRight/Colonize"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 6 )
+text = "Colonize"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Destroy" type="Panel" parent="TopRight"]
+margin_left = -900.0
+margin_top = 700.0
+margin_right = -650.0
+margin_bottom = 800.0
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopRight/Destroy"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 6 )
+text = "DESTROY !"
+align = 1
+valign = 1
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -463,5 +497,6 @@ __meta__ = {
 
 [connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
 [connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
+[connection signal="gui_input" from="TopRight/Itchio" to="." method="_on_itch_button_gui_input"]
 [connection signal="gui_input" from="Center/Panel/No" to="." method="_on_no_button_gui_input"]
 [connection signal="gui_input" from="Center/Panel/Yes" to="." method="_on_yes_button_gui_input"]

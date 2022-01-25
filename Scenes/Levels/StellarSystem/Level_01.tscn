@@ -34,14 +34,18 @@ body_name = "GD 4501-A"
 body_title = "Portfolio"
 body_description = "A project started in class, to prove my worth to recruiters. Each planets represents a project, and each stars represents a categorie. You are currently in the \"Game Design\" categorie."
 ressource_path_array = [ "res://Ressources/Project_Images/Img1.png", "res://Ressources/Project_Images/Img2.png", "res://Ressources/Project_Images/Img3.png" ]
+link = "https://godotengine.org/qa/5689/open-url-in-user-browser"
 biome = "Lava"
 
 [node name="GD_4501-B" parent="CelestialObjects" index="2" instance=ExtResource( 2 )]
-position = Vector2( 19000, 1000 )
+position = Vector2( 20000, 1000 )
 body_name = "GD 4501-B"
 body_title = "Tutoriel"
 body_description = "Test"
 biome = "Dry"
+
+[node name="PlayerCharacter" parent="." index="3"]
+position = Vector2( 11137, 1242 )
 
 [node name="LevelBackgroundMusic" parent="." index="4"]
 stream = ExtResource( 4 )

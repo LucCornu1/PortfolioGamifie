@@ -325,15 +325,15 @@ func _on_hyperspace_skipped() -> void:
 	if in_hyperspace:
 		var new_x : float = int((get_position().x / 10000)) * 10000
 		if facing_left:
-			set_position(Vector2(new_x + 3000, get_position().y))
+			set_position(Vector2(new_x + 2500, get_position().y))
 		else:
-			set_position(Vector2(new_x + 8500, get_position().y))
+			set_position(Vector2(new_x + 8000, get_position().y))
 
 func _on_planet_explored() -> void:
 	if is_instance_valid(object_scan):
 		if object_scan.is_class("Planet"):
 #			print(object_scan.get_ressource_path())
-			player_hud_node.show_planet_informations(object_scan.get_ressource_path_array())
+			player_hud_node.show_planet_informations(object_scan)
 		else:
 			print("Nothing To Explore")
 

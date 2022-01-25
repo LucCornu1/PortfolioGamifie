@@ -13,7 +13,7 @@ signal ressource_path_array_changed()
 export(String) var link = "" setget set_link, get_link
 signal link_changed()
 
-export(String, "Lava", "Dry", "Island", "Terran", "Ice") var biome = "Terran"
+export(String, "Lava", "Dry", "Island", "Terran", "Ice", "MotherLand") var biome = "Terran"
 
 
 # Setters & Getters need to be defined in order for an exported variable to work

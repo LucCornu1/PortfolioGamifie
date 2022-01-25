@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 	var index : int = celestial_objects_node.get_child_count()-1
 	if is_instance_valid(celestial_objects_node.get_child(index)):
-		var right_limit : float = celestial_objects_node.get_child(index).position.x + 1000
+		var right_limit : float = celestial_objects_node.get_child(index).position.x + 2400
 		player_character.character_camera2D_node.set_limit(MARGIN_RIGHT, right_limit)
 
 
