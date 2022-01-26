@@ -24,6 +24,7 @@ var destroy_mode : bool = false
 
 signal hyperspace_skipped()
 signal planet_explored()
+signal screen_shake()
 
 
 #### ACCESSORS ####
@@ -92,6 +93,9 @@ func colonize_planet() -> void:
 		planet.set_biome("None")
 	else:
 		planet.set_biome("MotherLand")
+
+func shake() -> void:
+	emit_signal("screen_shake")
 
 
 #### INPUTS ####

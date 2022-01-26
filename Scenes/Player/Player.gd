@@ -140,6 +140,7 @@ func _ready() -> void:
 	__ = connect("hyperspace_entered", player_hud_node, "_on_hyperspace_entered")
 	__ = player_hud_node.connect("hyperspace_skipped", self, "_on_hyperspace_skipped")
 	__ = player_hud_node.connect("planet_explored", self, "_on_planet_explored")
+	__ = player_hud_node.connect("screen_shake", self, "_on_animation_shake")
 	__ = connect("edge_entered", self, "_on_edge_entered")
 
 func _physics_process(_delta) -> void:
@@ -155,7 +156,10 @@ func _physics_process(_delta) -> void:
 #### LOGIC ####
 func _compute_velocity(_delta : float) -> void:
 	set_target_velocity(Vector2(moving_direction.x * movement_speed_X, moving_direction.y * movement_speed_Y))
-	set_velocity(get_velocity().linear_interpolate(target_velocity, _delta * 0.5))
+	var acc : float = 0.8
+	if dirRight - dirLeft != 0:
+		acc = 0.5
+	set_velocity(get_velocity().linear_interpolate(target_velocity, _delta * acc))
 
 func _apply_movement() -> void:
 	if velocity != Vector2.ZERO:
@@ -339,3 +343,6 @@ func _on_planet_explored() -> void:
 
 func _on_edge_entered() -> void:
 	player_hud_node.show_change_system_panel(get_on_edge())
+
+func _on_animation_shake() -> void:
+	character_camera2D_node.add_trauma(0.7)

@@ -104,11 +104,23 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 2.5 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
 "method": "colonize_planet"
+}, {
+"args": [  ],
+"method": "shake"
 } ]
 }
 
@@ -137,6 +149,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 0.501961 ), Color( 0.784314, 0.784314, 0.784314, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shake"
+} ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -586,7 +612,7 @@ __meta__ = {
 
 [node name="WhiteScreen" type="TextureRect" parent="."]
 visible = false
-modulate = Color( 0.705882, 0.705882, 0.705882, 0 )
+modulate = Color( 0.784314, 0.784314, 0.784314, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0

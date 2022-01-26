@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Ressources/Images/SpaceShip/capital_ship_01.png" type="Texture" id=1]
 [ext_resource path="res://Ressources/Images/SpaceShip/Exhaust/exhaust04.png" type="Texture" id=2]
@@ -32,16 +32,64 @@ animations = [ {
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Hyperspace",
-"speed": 16.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Move",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "Hyperspace",
+"speed": 16.0
 } ]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Camera2D
+
+func is_class(value: String): return value == \"CameraShake2D\" or .is_class(value)
+func get_class() -> String: return \"CameraShake2D\"
+
+
+export var decay = 0.6  # How quickly the shaking stops [0, 1].
+export var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
+export var max_roll = 0.5  # Maximum rotation in radians (use sparingly).
+export (NodePath) var target  # Assign the node this camera will follow.
+
+var trauma = 0.0  # Current shake strength.
+var trauma_power = 3  # Trauma exponent. Use [2, 3].
+
+
+#### ACCESSORS ####
+
+#### BUILT-IN ####
+func _ready() -> void:
+	randomize()
+
+func _process(_delta : float) -> void:
+	if target:
+		global_position = get_node(target).global_position
+	if trauma:
+		trauma = max(trauma - decay * _delta, 0)
+		shake()
+
+
+#### LOGIC ####
+func add_trauma(amount : float) -> void:
+	trauma = min(trauma + amount, 1.0)
+
+func shake() -> void:
+	var amount = pow(trauma, trauma_power)
+	rotation = max_roll * amount * rand_range(-1, 1)
+	offset.x = max_offset.x * amount * rand_range(-1, 1)
+	offset.y = max_offset.y * amount * rand_range(-1, 1)
+
+
+#### INPUTS ####
+
+
+
+#### SIGNAL RESPONSES ####
+"
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0.3125 ), 0.0, 0.0, 0, 0, Vector2( 0.311005, 1 ), 0.0, 0.0, 0, 0 ]
@@ -53,8 +101,8 @@ colors = PoolColorArray( 0.722656, 0.118561, 0, 0.937255, 0.768627, 0.234191, 0,
 [node name="PlayerCharacter" type="KinematicBody2D"]
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 6 )
-movement_speed_X = 350.0
-movement_speed_Y = 200.0
+movement_speed_X = 500.0
+movement_speed_Y = 300.0
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -71,7 +119,6 @@ position = Vector2( -247, 4 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
-frame = 2
 playing = true
 
 [node name="Thruster1" type="AnimatedSprite" parent="."]
@@ -79,7 +126,6 @@ position = Vector2( -237, -28 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
-frame = 2
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -93,6 +139,7 @@ limit_top = 0
 limit_bottom = 2000
 limit_smoothed = true
 smoothing_enabled = true
+script = SubResource( 6 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2( -245, -11 )
