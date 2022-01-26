@@ -345,4 +345,4 @@ func _on_edge_entered() -> void:
 	player_hud_node.show_change_system_panel(get_on_edge())
 
 func _on_animation_shake() -> void:
-	character_camera2D_node.add_trauma(0.7)
+	character_camera2D_node.add_trauma(0.6)

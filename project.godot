@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Portfolio Gamifie"
-run/main_scene="res://Scenes/Levels/StellarSystem/Level_01.tscn"
+run/main_scene="res://Scenes/Levels/StellarSystem/Level_0.tscn"
 config/icon="res://icon.png"
 
 [display]

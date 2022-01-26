@@ -18,8 +18,9 @@
 [ext_resource path="res://Ressources/Images/SpaceShip/Hyperspace_Exhaust/exhaust1.png" type="Texture" id=16]
 [ext_resource path="res://Ressources/Images/SpaceShip/Hyperspace_Exhaust/exhaust3.png" type="Texture" id=17]
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 252.008
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 71.25
+height = 415.0
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 71.4268
@@ -27,20 +28,20 @@ height = 971.432
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
 "loop": true,
-"name": "Idle",
-"speed": 5.0
+"name": "Hyperspace",
+"speed": 16.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Move",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
+"frames": [  ],
 "loop": true,
-"name": "Hyperspace",
-"speed": 16.0
+"name": "Idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="GDScript" id=6]
@@ -107,7 +108,8 @@ movement_speed_Y = 300.0
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 3 )
+rotation = 1.5708
+shape = SubResource( 7 )
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -119,6 +121,7 @@ position = Vector2( -247, 4 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 2
 playing = true
 
 [node name="Thruster1" type="AnimatedSprite" parent="."]
@@ -126,6 +129,7 @@ position = Vector2( -237, -28 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 2
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
