@@ -4,7 +4,6 @@ class_name PlayerHUD
 func is_class(value: String): return value == "PlayerHUD" or .is_class(value)
 func get_class() -> String: return "PlayerHUD"
 
-
 onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 # onready var texture_rect_node : TextureRect = get_node("BottomMiddle/ObjectName")
 onready var name_label : Label = get_node("BottomMiddle/ObjectName/Name")
@@ -18,6 +17,8 @@ onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
 onready var colonize_button : Panel = get_node("TopRight/Colonize")
 onready var destroy_button : Panel = get_node("TopRight/Destroy")
 onready var center_control_node : Control = get_node("Center")
+onready var button_information : Panel = get_node("ButtonInformation")
+onready var button_information_desc : Label = get_node("ButtonInformation/Label")
 
 var planet : Planet = null
 var destroy_mode : bool = false
@@ -26,19 +27,17 @@ signal hyperspace_skipped()
 signal planet_explored()
 signal screen_shake()
 
-
 #### ACCESSORS ####
-
-
 
 #### BUILT-IN ####
 func _ready() -> void:
 	pass
 
+func _physics_process(_delta):
+	if button_information.is_visible():
+		button_information.set_position(get_viewport().get_mouse_position())
 
 #### VIRTUALS ####
-
-
 
 #### LOGIC ####
 func show_name(name : String, title : String, description : String) -> void:
@@ -97,7 +96,6 @@ func colonize_planet() -> void:
 func shake() -> void:
 	emit_signal("screen_shake")
 
-
 #### INPUTS ####
 func _on_skip_panel_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") and skip_panel.is_visible():
@@ -133,8 +131,31 @@ func _on_destroy_button_gui_input(event: InputEvent) -> void:
 		destroy_mode = true
 		animation_player.play("BigShake")
 
-
 #### SIGNAL RESPONSES ####
 func _on_hyperspace_entered(value) -> void:
 	animation_player.play("WhiteFlash")
 	skip_panel.set_visible(value)
+
+func _on_sound_option_mouse_entered():
+	button_information.set_visible(true)
+	button_information_desc.set_text("Sound")
+
+func _on_sound_option_mouse_exited():
+	button_information.set_visible(false)
+	button_information_desc.set_text("")
+
+func _on_linkedin_option_mouse_entered():
+	button_information.set_visible(true)
+	button_information_desc.set_text("LinkedIn")
+
+func _on_linkedin_option_mouse_exited():
+	button_information.set_visible(false)
+	button_information_desc.set_text("")
+
+func _on_portfolio_option_mouse_entered():
+	button_information.set_visible(true)
+	button_information_desc.set_text("Portfolio")
+
+func _on_portfolio_option_mouse_exited():
+	button_information.set_visible(false)
+	button_information_desc.set_text("")
