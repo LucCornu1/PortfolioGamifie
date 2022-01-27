@@ -33,15 +33,15 @@ animations = [ {
 "name": "Hyperspace",
 "speed": 16.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "Move",
-"speed": 8.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Move",
+"speed": 8.0
 } ]
 
 [sub_resource type="GDScript" id=6]
@@ -121,7 +121,7 @@ position = Vector2( -247, 4 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Thruster1" type="AnimatedSprite" parent="."]
@@ -129,7 +129,7 @@ position = Vector2( -237, -28 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]

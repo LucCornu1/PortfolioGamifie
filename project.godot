@@ -9,6 +9,26 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "State",
+"class": "ButtonEnabled",
+"language": "GDScript",
+"path": "res://Scenes/HUD/Options/States/ButtonEnabled.gd"
+}, {
+"base": "State",
+"class": "ButtonEnabled_Pressed",
+"language": "GDScript",
+"path": "res://Scenes/HUD/Options/States/ButtonEnabled_Pressed.gd"
+}, {
+"base": "State",
+"class": "ButtonNormal",
+"language": "GDScript",
+"path": "res://Scenes/HUD/Options/States/ButtonNormal.gd"
+}, {
+"base": "State",
+"class": "ButtonNormal_Pressed",
+"language": "GDScript",
+"path": "res://Scenes/HUD/Options/States/ButtonNormal_Pressed.gd"
+}, {
 "base": "Node2D",
 "class": "CelestialBody",
 "language": "GDScript",
@@ -33,6 +53,11 @@ _global_script_classes=[ {
 "class": "LevelBase",
 "language": "GDScript",
 "path": "res://Scenes/Levels/LevelBase.gd"
+}, {
+"base": "TextureButton",
+"class": "Option",
+"language": "GDScript",
+"path": "res://Scenes/HUD/Options/Option.gd"
 }, {
 "base": "CelestialBody",
 "class": "Planet",
@@ -65,11 +90,16 @@ _global_script_classes=[ {
 "path": "res://Scenes/StateMachine/StateMachine.gd"
 } ]
 _global_script_class_icons={
+"ButtonEnabled": "",
+"ButtonEnabled_Pressed": "",
+"ButtonNormal": "",
+"ButtonNormal_Pressed": "",
 "CelestialBody": "",
 "CharacterHyperspaceState": "",
 "CharacterIdleState": "",
 "CharacterMoveState": "",
 "LevelBase": "",
+"Option": "",
 "Planet": "",
 "PlayerCharacter": "",
 "PlayerHUD": "",
