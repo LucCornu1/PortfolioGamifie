@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Levels/LevelBase.gd" type="Script" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ParallaxBackground
+func is_class(value: String): return value == \"ParallaxForeground\" or .is_class(value)
+func get_class() -> String: return \"ParallaxForeground\"
+
+
+onready var clouds_layer : ParallaxLayer = get_node(\"Clouds\")
+
+export(Vector2) var hyperspace_motion
+export(Vector2) var normalspace_motion
+
+
+#### ACCESSORS ####
+
+#### BUILT-IN ####
+
+#### VIRTUALS ####
+
+#### LOGIC ####
+
+#### INPUTS ####
+
+#### SIGNAL RESPONSES ####
+func _on_hyperspace_entered(value) -> void:
+	clouds_layer.set_visible(value)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ParallaxBackground
+func is_class(value: String): return value == \"ParallaxBackground\" or .is_class(value)
+func get_class() -> String: return \"ParallaxBackground\"
+
+
+onready var stars_layer : ParallaxLayer = get_node(\"Stars\")
+onready var clouds_layer : ParallaxLayer = get_node(\"Clouds\")
+
+export(Vector2) var stars_hyperspace_motion
+export(Vector2) var clouds_hyperspace_motion
+export(Vector2) var stars_normalspace_motion
+export(Vector2) var clouds_normalspace_motion
+
+
+#### ACCESSORS ####
+
+#### BUILT-IN ####
+
+#### VIRTUALS ####
+
+#### LOGIC ####
+
+#### INPUTS ####
+
+#### SIGNAL RESPONSES ####
+func _on_hyperspace_entered(value) -> void:
+	if value:
+		stars_layer.set_motion_scale(stars_hyperspace_motion)
+		clouds_layer.set_motion_scale(clouds_hyperspace_motion)
+	else:
+		stars_layer.set_motion_scale(stars_normalspace_motion)
+		clouds_layer.set_motion_scale(clouds_normalspace_motion)
+"
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ParallaxForeground" type="ParallaxBackground" parent="."]
+layer = 1
+script = SubResource( 1 )
+hyperspace_motion = Vector2( 8, 1.3 )
+normalspace_motion = Vector2( 1.1, 1.1 )
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxForeground"]
+modulate = Color( 1, 1, 1, 0.823529 )
+motion_scale = Vector2( 10, 1.3 )
+motion_mirroring = Vector2( 6000, 2000 )
+
+[node name="SpaceBackground2" type="Sprite" parent="ParallaxForeground/Clouds"]
+scale = Vector2( 2, 2 )
+centered = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = SubResource( 2 )
+stars_hyperspace_motion = Vector2( 0.8, 0.8 )
+clouds_hyperspace_motion = Vector2( 6, 1.3 )
+stars_normalspace_motion = Vector2( 0.8, 0.8 )
+clouds_normalspace_motion = Vector2( 1.3, 1.3 )
+
+[node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+motion_mirroring = Vector2( 6000, 2000 )
+
+[node name="SpaceBackground0" type="Sprite" parent="ParallaxBackground/Stars"]
+scale = Vector2( 2, 2 )
+centered = false
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 6, 1.2 )
+motion_mirroring = Vector2( 6000, 2000 )
+
+[node name="SpaceBackground1" type="Sprite" parent="ParallaxBackground/Clouds"]
+scale = Vector2( 2, 2 )
+centered = false
+
+[node name="CelestialObjects" type="Node2D" parent="."]
+
+[node name="PlayerCharacter" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2860, 1052 )
+
+[node name="LevelBackgroundMusic" type="AudioStreamPlayer" parent="."]
+volume_db = -0.5
+autoplay = true

@@ -1,0 +1,707 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Objects/HUDTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Ressources/Images/Backgrounds/White.png" type="Texture" id=4]
+[ext_resource path="res://Ressources/Menu/ArrowRight.png" type="Texture" id=5]
+[ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/HUD/HUD2Theme.tres" type="Theme" id=7]
+[ext_resource path="res://Scenes/HUD/HUDTheme.tres" type="Theme" id=8]
+[ext_resource path="res://Ressources/Menu/itch.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/UI_Buttons/Options/SoundOption.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/UI_Buttons/Options/LinkedInOption.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/UI_Buttons/Options/PortfolioOption.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Animation" id=9]
+resource_name = "BigShake"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -960, -140 ), Vector2( -960, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../TopLeft:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -300, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../../TopLeft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../TopRight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../../WhiteScreen:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../../WhiteScreen:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2, 2.1, 2.2, 2.3, 2.4, 3.3, 3.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 0.784314 ), Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 0.858824 ), Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 0.501961 ), Color( 0.705882, 0.705882, 0.705882, 0 ) ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("../..")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
+"method": "shake"
+}, {
+"args": [  ],
+"method": "colonize_planet"
+}, {
+"args": [  ],
+"method": "shake"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "WhiteFlash"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../../WhiteScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../WhiteScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 1 ), Color( 0.705882, 0.705882, 0.705882, 0.501961 ), Color( 0.784314, 0.784314, 0.784314, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shake"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../TopLeft:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "transition"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -960, 0 ), Vector2( -960, -140 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../TopLeft:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -300, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../../TopLeft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 24
+font_data = ExtResource( 6 )
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BottomMiddle/ObjectName")
+anims/BigShake = SubResource( 9 )
+anims/WhiteFlash = SubResource( 2 )
+anims/transition = SubResource( 1 )
+
+[node name="BottomMiddle" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectName" type="TextureRect" parent="BottomMiddle"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -960.0
+margin_right = 960.0
+margin_bottom = 140.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="BottomMiddle/ObjectName"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -108.0
+margin_top = -37.0
+margin_right = 108.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 3 )
+text = "None"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopLeft" type="Control" parent="."]
+visible = false
+margin_left = -300.0
+margin_right = -260.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectDescription" type="Panel" parent="TopLeft"]
+margin_top = 64.0
+margin_right = 300.0
+margin_bottom = 664.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="TopLeft/ObjectDescription"]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 50.0
+margin_right = -10.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 4 )
+text = "Title"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="TopLeft/ObjectDescription"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -145.5
+margin_right = -10.0
+margin_bottom = 181.5
+custom_fonts/font = SubResource( 5 )
+text = "None
+"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExploreButton" type="Panel" parent="TopLeft"]
+margin_top = 607.0
+margin_right = 300.0
+margin_bottom = 682.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="TopLeft/ExploreButton"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -13.5
+margin_bottom = 13.5
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopLeft/ExploreButton"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -37.5
+margin_right = 268.0
+margin_bottom = 37.5
+custom_fonts/font = SubResource( 6 )
+text = "EXPLORE"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomRight" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skip" type="Panel" parent="BottomRight"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -260.0
+margin_top = -106.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="BottomRight/Skip"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -13.5
+margin_bottom = 13.5
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BottomRight/Skip"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -53.0
+margin_right = 220.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 6 )
+text = "SKIP"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopRight" type="Control" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background_Image" type="Panel" parent="TopRight"]
+margin_left = -1068.0
+margin_right = 1.0
+margin_bottom = 600.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImgControl" type="Control" parent="TopRight"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Image_0" type="TextureRect" parent="TopRight/ImgControl"]
+anchor_right = 1.0
+margin_left = -994.0
+margin_top = 50.0
+margin_right = -134.0
+margin_bottom = 500.0
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Itchio" type="TextureRect" parent="TopRight"]
+margin_left = -1304.0
+margin_right = -1097.0
+margin_bottom = 207.0
+texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colonize" type="Panel" parent="TopRight"]
+visible = false
+margin_left = -400.0
+margin_top = 700.0
+margin_right = -150.0
+margin_bottom = 800.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopRight/Colonize"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 6 )
+text = "Colonize"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Destroy" type="Panel" parent="TopRight"]
+visible = false
+margin_left = -900.0
+margin_top = 700.0
+margin_right = -650.0
+margin_bottom = 800.0
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TopRight/Destroy"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 6 )
+text = "DESTROY !"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Center" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -234.0
+margin_top = -99.0
+margin_right = 234.0
+margin_bottom = 65.0
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel"]
+margin_left = 5.0
+margin_top = 10.0
+margin_right = 446.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 8 )
+text = "Change stellar system"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Panel" parent="Center/Panel"]
+margin_left = 50.0
+margin_top = 80.0
+margin_right = 200.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel/No"]
+margin_right = 150.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "No"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="Panel" parent="Center/Panel"]
+margin_left = 268.0
+margin_top = 80.0
+margin_right = 418.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 50 )
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Center/Panel/Yes"]
+margin_right = 150.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 8 )
+text = "Yes"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlwaysOnScreen" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SoundOption" parent="AlwaysOnScreen" instance=ExtResource( 10 )]
+
+[node name="LinkedInOption" parent="AlwaysOnScreen" instance=ExtResource( 11 )]
+margin_left = 64.0
+margin_right = 128.0
+
+[node name="PortfolioOption" parent="AlwaysOnScreen" instance=ExtResource( 12 )]
+margin_left = 128.0
+margin_right = 192.0
+
+[node name="ButtonInformation" type="Panel" parent="."]
+visible = false
+margin_top = 94.0
+margin_right = 192.0
+margin_bottom = 154.0
+mouse_filter = 2
+theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ButtonInformation"]
+margin_right = 192.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 10 )
+text = "test"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WhiteScreen" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
+[connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
+[connection signal="gui_input" from="TopRight/Itchio" to="." method="_on_itch_button_gui_input"]
+[connection signal="gui_input" from="TopRight/Colonize" to="." method="_on_colonize_button_gui_input"]
+[connection signal="gui_input" from="TopRight/Destroy" to="." method="_on_destroy_button_gui_input"]
+[connection signal="gui_input" from="Center/Panel/No" to="." method="_on_no_button_gui_input"]
+[connection signal="gui_input" from="Center/Panel/Yes" to="." method="_on_yes_button_gui_input"]
+[connection signal="mouse_entered" from="AlwaysOnScreen/SoundOption" to="." method="_on_sound_option_mouse_entered"]
+[connection signal="mouse_exited" from="AlwaysOnScreen/SoundOption" to="." method="_on_sound_option_mouse_exited"]
+[connection signal="mouse_entered" from="AlwaysOnScreen/LinkedInOption" to="." method="_on_linkedin_option_mouse_entered"]
+[connection signal="mouse_exited" from="AlwaysOnScreen/LinkedInOption" to="." method="_on_linkedin_option_mouse_exited"]
+[connection signal="mouse_entered" from="AlwaysOnScreen/PortfolioOption" to="." method="_on_portfolio_option_mouse_entered"]
+[connection signal="mouse_exited" from="AlwaysOnScreen/PortfolioOption" to="." method="_on_portfolio_option_mouse_exited"]

@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/HUD/HUDTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Ressources/Images/Cross.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+func is_class(value: String): return value == \"Level_Pointer\" or .is_class(value)
+func get_class() -> String: return \"Level_Pointer\"
+
+
+export(String) var level_path = \"\"
+export(String) var label_name = \"\"
+var base_theme = load(\"res://Scenes/HUD/HUDTheme.tres\")
+var theme_over = load(\"res://Scenes/HUD/HUD2Theme.tres\")
+
+#### ACCESSORS ####
+
+
+#### BUILT-IN ####
+func _ready() -> void:
+	$Panel/Label.set_text(label_name)
+
+
+#### VIRTUALS ####
+
+
+#### LOGIC ####
+
+
+#### INPUTS ####
+func _on_gui_input(event : InputEvent) -> void:
+	if event.is_action_pressed(\"left_click\") and $Panel.is_visible():
+		get_tree().change_scene(level_path)
+
+
+#### SIGNAL RESPONSES ####
+func _on_mouse_entered() -> void:
+	$Panel.set_theme(theme_over)
+
+func _on_mouse_exited() -> void:
+	$Panel.set_theme(base_theme)
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 1 )
+
+[node name="Level_Pointer" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Cross" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = -183.0
+margin_top = 50.0
+margin_right = 182.0
+margin_bottom = 166.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -233.0
+margin_top = -74.0
+margin_right = 233.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 2 )
+text = "Game design"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="Panel" to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="Panel" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_mouse_exited"]
