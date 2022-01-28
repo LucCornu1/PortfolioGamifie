@@ -59,6 +59,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/UI_Buttons/Options/LinkedInOption.gd"
 }, {
+"base": "Option",
+"class": "MapOption",
+"language": "GDScript",
+"path": "res://Scenes/UI_Buttons/Options/MapOption.gd"
+}, {
+"base": "Option",
+"class": "NextOption",
+"language": "GDScript",
+"path": "res://Scenes/UI_Buttons/Options/NextOption.gd"
+}, {
 "base": "TextureButton",
 "class": "Option",
 "language": "GDScript",
@@ -83,6 +93,11 @@ _global_script_classes=[ {
 "class": "PortfolioOption",
 "language": "GDScript",
 "path": "res://Scenes/UI_Buttons/Options/PortfolioOption.gd"
+}, {
+"base": "Option",
+"class": "PreviousOption",
+"language": "GDScript",
+"path": "res://Scenes/UI_Buttons/Options/PreviousOption.gd"
 }, {
 "base": "Option",
 "class": "SoundOption",
@@ -115,11 +130,14 @@ _global_script_class_icons={
 "CharacterMoveState": "",
 "LevelBase": "",
 "LinkedInOption": "",
+"MapOption": "",
+"NextOption": "",
 "Option": "",
 "Planet": "",
 "PlayerCharacter": "",
 "PlayerHUD": "",
 "PortfolioOption": "",
+"PreviousOption": "",
 "SoundOption": "",
 "State": "",
 "StateLabel": "",
@@ -131,6 +149,10 @@ _global_script_class_icons={
 config/name="Portfolio Gamifie"
 run/main_scene="res://Scenes/Levels/StellarSystem/Level_0.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+EVENTS="*res://Scenes/Globals/EVENTS.gd"
 
 [display]
 

@@ -46,6 +46,7 @@ animations = [ {
 
 [node name="SoundOption" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+description = "Sound"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )

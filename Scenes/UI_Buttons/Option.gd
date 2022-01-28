@@ -9,6 +9,9 @@ onready var animated_button : AnimatedSprite = get_node("AnimatedSprite")
 var enabled : bool = false setget set_enabled, get_enabled
 signal button_enabled()
 
+export(String) var description = ""
+signal mouse_description_changed(is_inside, description)
+
 #### ACCESSORS ####
 func set_enabled(value : bool) -> void:
 	if value != enabled:
@@ -39,3 +42,9 @@ func _on_button_down() -> void:
 
 func _on_button_up() -> void:
 	pass
+
+func _on_option_mouse_entered() -> void:
+	emit_signal("mouse_description_changed", true, description)
+
+func _on_option_mouse_exited():
+	emit_signal("mouse_description_changed", false, "")

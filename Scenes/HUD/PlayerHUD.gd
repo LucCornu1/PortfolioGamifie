@@ -5,7 +5,6 @@ func is_class(value: String): return value == "PlayerHUD" or .is_class(value)
 func get_class() -> String: return "PlayerHUD"
 
 onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
-# onready var texture_rect_node : TextureRect = get_node("BottomMiddle/ObjectName")
 onready var name_label : Label = get_node("BottomMiddle/ObjectName/Name")
 onready var title_label : Label = get_node("TopLeft/ObjectDescription/Title")
 onready var decription_label : Label = get_node("TopLeft/ObjectDescription/Description")
@@ -17,6 +16,7 @@ onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
 onready var colonize_button : Panel = get_node("TopRight/Colonize")
 onready var destroy_button : Panel = get_node("TopRight/Destroy")
 onready var center_control_node : Control = get_node("Center")
+onready var always_on_screen_node : Control = get_node("AlwaysOnScreen")
 onready var button_information : Panel = get_node("ButtonInformation")
 onready var button_information_desc : Label = get_node("ButtonInformation/Label")
 
@@ -31,7 +31,9 @@ signal screen_shake()
 
 #### BUILT-IN ####
 func _ready() -> void:
-	pass
+	var __ = EVENTS.connect("change_map_requested", self, "_on_change_map_requested")
+	for i in always_on_screen_node.get_child_count():
+		__ = always_on_screen_node.get_child(i).connect("mouse_description_changed", self, "_on_mouse_status_changed")
 
 func _physics_process(_delta):
 	if button_information.is_visible():
@@ -136,26 +138,9 @@ func _on_hyperspace_entered(value) -> void:
 	animation_player.play("WhiteFlash")
 	skip_panel.set_visible(value)
 
-func _on_sound_option_mouse_entered():
-	button_information.set_visible(true)
-	button_information_desc.set_text("Sound")
+func _on_mouse_status_changed(is_inside : bool, description : String) -> void:
+	button_information.set_visible(is_inside)
+	button_information_desc.set_text(description)
 
-func _on_sound_option_mouse_exited():
-	button_information.set_visible(false)
-	button_information_desc.set_text("")
-
-func _on_linkedin_option_mouse_entered():
-	button_information.set_visible(true)
-	button_information_desc.set_text("LinkedIn")
-
-func _on_linkedin_option_mouse_exited():
-	button_information.set_visible(false)
-	button_information_desc.set_text("")
-
-func _on_portfolio_option_mouse_entered():
-	button_information.set_visible(true)
-	button_information_desc.set_text("Portfolio")
-
-func _on_portfolio_option_mouse_exited():
-	button_information.set_visible(false)
-	button_information_desc.set_text("")
+func _on_change_map_requested() -> void:
+	show_change_system_panel(true)

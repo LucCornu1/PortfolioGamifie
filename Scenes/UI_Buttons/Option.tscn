@@ -34,3 +34,6 @@ script = ExtResource( 2 )
 
 [node name="ButtonEnabled_Pressed" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_option_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_option_mouse_exited"]
