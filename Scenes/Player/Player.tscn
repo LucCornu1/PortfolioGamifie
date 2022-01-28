@@ -121,6 +121,7 @@ position = Vector2( -247, 4 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 3
 playing = true
 
 [node name="Thruster1" type="AnimatedSprite" parent="."]
@@ -128,6 +129,7 @@ position = Vector2( -237, -28 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 2 )
 animation = "Hyperspace"
+frame = 3
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -182,10 +184,10 @@ script = ExtResource( 8 )
 
 [node name="HyperspaceEnter" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 12 )
-volume_db = -2.5
+volume_db = -13.5
 pitch_scale = 0.9
 
 [node name="HyperspaceExit" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 11 )
-volume_db = -6.5
+volume_db = -17.5
 pitch_scale = 0.8

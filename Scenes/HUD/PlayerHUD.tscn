@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Scenes/UI_Buttons/Options/SoundOption.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/UI_Buttons/Options/LinkedInOption.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/UI_Buttons/Options/PortfolioOption.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/UI_Buttons/Options/PreviousOption.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/UI_Buttons/Options/NextOption.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Animation" id=9]
 resource_name = "BigShake"
@@ -242,6 +244,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../WhiteScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="DynamicFont" id=3]
@@ -657,6 +671,14 @@ margin_right = 128.0
 margin_left = 128.0
 margin_right = 192.0
 
+[node name="PreviousOption" parent="AlwaysOnScreen" instance=ExtResource( 13 )]
+margin_left = 192.0
+margin_right = 256.0
+
+[node name="NextOption" parent="AlwaysOnScreen" instance=ExtResource( 14 )]
+margin_left = 256.0
+margin_right = 320.0
+
 [node name="ButtonInformation" type="Panel" parent="."]
 visible = false
 margin_top = 94.0
@@ -686,6 +708,7 @@ modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 expand = true
 __meta__ = {
