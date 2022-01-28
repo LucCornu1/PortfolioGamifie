@@ -31,7 +31,7 @@ signal screen_shake()
 
 #### BUILT-IN ####
 func _ready() -> void:
-	var __
+	var __ = EVENTS.connect("change_map_requested", self, "_on_change_map_requested")
 	for i in always_on_screen_node.get_child_count():
 		__ = always_on_screen_node.get_child(i).connect("mouse_description_changed", self, "_on_mouse_status_changed")
 
@@ -141,3 +141,6 @@ func _on_hyperspace_entered(value) -> void:
 func _on_mouse_status_changed(is_inside : bool, description : String) -> void:
 	button_information.set_visible(is_inside)
 	button_information_desc.set_text(description)
+
+func _on_change_map_requested() -> void:
+	show_change_system_panel(true)
