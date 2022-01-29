@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Scenes/UI_Buttons/Options/PreviousOption.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/UI_Buttons/Options/NextOption.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/UI_Buttons/Options/MapOption.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Ressources/Menu/ArrowLeft.png" type="Texture" id=16]
+[ext_resource path="res://Ressources/Project_Images/portfolio.jpg" type="Texture" id=17]
 
 [sub_resource type="Animation" id=9]
 resource_name = "BigShake"
@@ -110,8 +112,8 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "shake"
@@ -127,6 +129,9 @@ tracks/7/keys = {
 }, {
 "args": [  ],
 "method": "shake"
+}, {
+"args": [  ],
+"method": "rewind_HUD"
 } ]
 }
 
@@ -274,6 +279,22 @@ font_data = ExtResource( 6 )
 [sub_resource type="DynamicFont" id=6]
 size = 32
 font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "ArrowAnim"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1535, 300 ), Vector2( -1499, 300 ), Vector2( -1535, 300 ) ]
+}
 
 [sub_resource type="DynamicFont" id=8]
 size = 24
@@ -492,16 +513,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ImgControl" type="Control" parent="TopRight"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="ImgControl" type="Control" parent="TopRight/Background_Image"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -0.5
+margin_right = 0.5
 
-[node name="Image_0" type="TextureRect" parent="TopRight/ImgControl"]
-anchor_right = 1.0
-margin_left = -994.0
-margin_top = 50.0
-margin_right = -134.0
-margin_bottom = 500.0
+[node name="Image_0" type="TextureRect" parent="TopRight/Background_Image/ImgControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -430.5
+margin_top = -225.0
+margin_right = 430.5
+margin_bottom = 225.0
 expand = true
 stretch_mode = 1
 __meta__ = {
@@ -513,6 +541,17 @@ margin_left = -1304.0
 margin_right = -1097.0
 margin_bottom = 207.0
 texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portfolio" type="TextureRect" parent="TopRight"]
+margin_left = -1304.0
+margin_top = 222.0
+margin_right = -1097.0
+margin_bottom = 429.0
+texture = ExtResource( 17 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -569,6 +608,16 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="TopRight"]
+modulate = Color( 0.313726, 1, 0, 1 )
+position = Vector2( -1535, 300 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TopRight/Sprite"]
+autoplay = "ArrowAnim"
+anims/ArrowAnim = SubResource( 11 )
 
 [node name="Center" type="Control" parent="."]
 visible = false
@@ -673,16 +722,16 @@ margin_left = 128.0
 margin_right = 192.0
 
 [node name="PreviousOption" parent="AlwaysOnScreen" instance=ExtResource( 13 )]
-margin_left = 192.0
-margin_right = 256.0
-
-[node name="NextOption" parent="AlwaysOnScreen" instance=ExtResource( 14 )]
 margin_left = 256.0
 margin_right = 320.0
 
-[node name="MapOption" parent="AlwaysOnScreen" instance=ExtResource( 15 )]
+[node name="NextOption" parent="AlwaysOnScreen" instance=ExtResource( 14 )]
 margin_left = 320.0
 margin_right = 384.0
+
+[node name="MapOption" parent="AlwaysOnScreen" instance=ExtResource( 15 )]
+margin_left = 192.0
+margin_right = 256.0
 
 [node name="ButtonInformation" type="Panel" parent="."]
 visible = false
@@ -709,7 +758,7 @@ __meta__ = {
 
 [node name="WhiteScreen" type="TextureRect" parent="."]
 visible = false
-modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+modulate = Color( 0.705882, 0.705882, 0.705882, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
@@ -723,6 +772,7 @@ __meta__ = {
 [connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
 [connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
 [connection signal="gui_input" from="TopRight/Itchio" to="." method="_on_itch_button_gui_input"]
+[connection signal="gui_input" from="TopRight/Portfolio" to="." method="_on_portfolio_button_gui_input"]
 [connection signal="gui_input" from="TopRight/Colonize" to="." method="_on_colonize_button_gui_input"]
 [connection signal="gui_input" from="TopRight/Destroy" to="." method="_on_destroy_button_gui_input"]
 [connection signal="gui_input" from="Center/Panel/No" to="." method="_on_no_button_gui_input"]

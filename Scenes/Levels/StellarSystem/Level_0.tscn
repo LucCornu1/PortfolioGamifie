@@ -1,13 +1,19 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Levels/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ressources/Images/Backgrounds/Dust_Funk.png" type="Texture" id=2]
 [ext_resource path="res://Ressources/Images/Backgrounds/Stars_Funk.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/CelestialBodies/Planet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/HUD/UI_Sprite.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Ressources/Menu/Chromia.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://Scenes/HUD/HUD2Theme.tres" type="Theme" id=6]
+[ext_resource path="res://Scenes/Levels/StellarSystem/Level_0.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 5 )
 
 [node name="Level_0" instance=ExtResource( 1 )]
+script = ExtResource( 7 )
 
 [node name="ParallaxBackground" parent="." index="1"]
 stars_hyperspace_motion = Vector2( 0.8, 0.1 )
@@ -25,52 +31,40 @@ texture = ExtResource( 2 )
 position = Vector2( 2400, 1000 )
 body_name = "Drifting Motherland"
 body_title = "Welcome !"
-body_description = "I am Luc CORNU, and welcome to my portfolio ! To learn more about this game, click \"Explore\"."
+body_description = "I am Luc CORNU. Welcome to my portfolio ! To learn more about this game, click \"Explore\"."
+explored_description = "Each star system represents a categorie, and each planets a project. You can change stellar system by approaching the borders, or by clicking the \"up arrow\" button top left ! You can also access my regular portfolio by clicking the \"3 bars\" button."
 ressource_path_array = [ "res://Ressources/Project_Images/Portfolio.png", "", "" ]
-link = "https://tempusfugit6.itch.io/"
+itch_link = "https://tempusfugit6.itch.io/"
+portfolio_link = "https://tempusfugit6.itch.io/"
 biome = "MotherLand"
 
-[node name="Keys" type="Node2D" parent="." index="3"]
+[node name="Informations" type="Node2D" parent="." index="3"]
 
-[node name="Panel" type="Panel" parent="Keys" index="0"]
-margin_left = 800.0
-margin_top = 600.0
-margin_right = 1200.0
-margin_bottom = 900.0
+[node name="Panel" type="Panel" parent="Informations" index="0"]
+margin_left = 616.0
+margin_top = 459.0
+margin_right = 1270.0
+margin_bottom = 700.0
 theme = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Z" parent="Keys/Panel" index="0" instance=ExtResource( 5 )]
-position = Vector2( 200, 90 )
+[node name="Label" type="Label" parent="Informations/Panel" index="0"]
+margin_top = 11.0
+margin_right = 654.0
+margin_bottom = 232.0
+custom_fonts/font = SubResource( 1 )
+text = "Use WASD, or ZSQD, 
+or the arrow keys to move.
 
-[node name="AnimatedSprite" parent="Keys/Panel/Z" index="0"]
-animation = "Z"
-playing = true
 
-[node name="S" parent="Keys/Panel" index="1" instance=ExtResource( 5 )]
-position = Vector2( 200, 200 )
-
-[node name="AnimatedSprite" parent="Keys/Panel/S" index="0"]
-animation = "S"
-
-[node name="Q" parent="Keys/Panel" index="2" instance=ExtResource( 5 )]
-position = Vector2( 100, 200 )
-
-[node name="AnimatedSprite" parent="Keys/Panel/Q" index="0"]
-animation = "Q"
-
-[node name="D" parent="Keys/Panel" index="3" instance=ExtResource( 5 )]
-position = Vector2( 300, 200 )
-
-[node name="AnimatedSprite" parent="Keys/Panel/D" index="0"]
-animation = "D"
+Approach the planet to discover more."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerCharacter" parent="." index="4"]
 position = Vector2( 487, 992 )
-
-[editable path="Keys/Panel/Z"]
-[editable path="Keys/Panel/S"]
-[editable path="Keys/Panel/Q"]
-[editable path="Keys/Panel/D"]
