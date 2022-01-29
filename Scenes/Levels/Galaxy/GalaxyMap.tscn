@@ -2336,7 +2336,7 @@ centered = false
 position = Vector2( 1038, 502 )
 scale = Vector2( 10, 10 )
 frames = SubResource( 578 )
-frame = 200
+frame = 231
 playing = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -2368,6 +2368,7 @@ label_name = "Game Design"
 [node name="Level_Pointer4" parent="Levels" instance=ExtResource( 3 )]
 position = Vector2( 1095, 250 )
 scale = Vector2( 0.5, 0.5 )
+level_path = "res://Scenes/Levels/StellarSystem/Level_02.tscn"
 label_name = "Moteur"
 
 [node name="Level_Pointer3" parent="Levels" instance=ExtResource( 3 )]
