@@ -11,8 +11,10 @@ export(String) var explored_description setget set_explored_description, get_exp
 export(Array) var ressource_path_array setget set_ressource_path_array, get_ressource_path_array
 signal ressource_path_array_changed()
 
-export(String) var itch_link = "" setget set_link, get_link
+export(String) var itch_link = "" setget set_itch_link, get_itch_link
 signal link_changed()
+
+export(String) var portfolio_link = "" setget set_portfolio_link, get_portfolio_link
 
 export(String, "Lava", "Dry", "Island", "Terran", "Ice", "MotherLand", "None") var biome = "Terran" setget set_biome, get_biome
 signal biome_changed()
@@ -35,13 +37,21 @@ func set_ressource_path_array(new_array : Array) -> void:
 func get_ressource_path_array() -> Array:
 	return ressource_path_array.duplicate()
 
-func set_link(new_link : String) -> void:
+func set_itch_link(new_link : String) -> void:
 	if new_link != itch_link:
 		itch_link = new_link
 		emit_signal("link_changed")
 
-func get_link() -> String:
+func get_itch_link() -> String:
 	return itch_link
+
+func set_portfolio_link(new_link : String) -> void:
+	if new_link != portfolio_link:
+		portfolio_link = new_link
+		#emit_signal()
+
+func get_portfolio_link() -> String:
+	return portfolio_link
 
 func set_biome(new_biome : String) -> void:
 	if new_biome != biome:

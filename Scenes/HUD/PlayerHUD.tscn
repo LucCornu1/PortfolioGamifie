@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Ressources/Menu/BlockInformation.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HUD/PlayerHUD.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Scenes/UI_Buttons/Options/NextOption.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/UI_Buttons/Options/MapOption.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Ressources/Menu/ArrowLeft.png" type="Texture" id=16]
+[ext_resource path="res://Ressources/Project_Images/portfolio.jpg" type="Texture" id=17]
 
 [sub_resource type="Animation" id=9]
 resource_name = "BigShake"
@@ -111,8 +112,8 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 2, 2.2, 2.4, 2.5, 3.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "shake"
@@ -128,6 +129,9 @@ tracks/7/keys = {
 }, {
 "args": [  ],
 "method": "shake"
+}, {
+"args": [  ],
+"method": "rewind_HUD"
 } ]
 }
 
@@ -542,6 +546,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Portfolio" type="TextureRect" parent="TopRight"]
+margin_left = -1304.0
+margin_top = 222.0
+margin_right = -1097.0
+margin_bottom = 429.0
+texture = ExtResource( 17 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Colonize" type="Panel" parent="TopRight"]
 visible = false
 margin_left = -400.0
@@ -743,7 +758,7 @@ __meta__ = {
 
 [node name="WhiteScreen" type="TextureRect" parent="."]
 visible = false
-modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+modulate = Color( 0.705882, 0.705882, 0.705882, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
@@ -757,6 +772,7 @@ __meta__ = {
 [connection signal="gui_input" from="TopLeft/ExploreButton" to="." method="_on_explore_button_gui_input"]
 [connection signal="gui_input" from="BottomRight/Skip" to="." method="_on_skip_panel_gui_input"]
 [connection signal="gui_input" from="TopRight/Itchio" to="." method="_on_itch_button_gui_input"]
+[connection signal="gui_input" from="TopRight/Portfolio" to="." method="_on_portfolio_button_gui_input"]
 [connection signal="gui_input" from="TopRight/Colonize" to="." method="_on_colonize_button_gui_input"]
 [connection signal="gui_input" from="TopRight/Destroy" to="." method="_on_destroy_button_gui_input"]
 [connection signal="gui_input" from="Center/Panel/No" to="." method="_on_no_button_gui_input"]

@@ -14,6 +14,7 @@ onready var explore_label : Label = get_node("TopLeft/ExploreButton/Label")
 onready var top_right_node : Control = get_node("TopRight")
 onready var image_control_node : Control = get_node("TopRight/Background_Image/ImgControl")
 onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
+onready var image_portfolio_node : TextureRect = get_node("TopRight/Portfolio")
 onready var colonize_button : Panel = get_node("TopRight/Colonize")
 onready var destroy_button : Panel = get_node("TopRight/Destroy")
 onready var center_control_node : Control = get_node("Center")
@@ -45,6 +46,7 @@ func _physics_process(_delta):
 #### LOGIC ####
 func show_name(name : String, title : String, description : String) -> void:
 	animation_player.play("transition")
+	explore_label.set_text("EXPLORE")
 	set_label_text(name, name_label)
 	set_label_text(title, title_label)
 	set_label_text(description, description_label)
@@ -60,18 +62,23 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 func show_planet_informations(object_scan : Planet) -> void:
 	var ressource_path_array : Array = object_scan.get_ressource_path_array()
 	var children_array : Array = image_control_node.get_children()
-	description_label.set_text(object_scan.get_explored_description())
+	
 	planet = object_scan
-	if planet.get_link() == "":
-		image_itch_node.set_visible(false)
-		if planet.get_biome() != "None":
-			destroy_button.set_visible(true)
-		if planet.get_biome() != "MotherLand":
-			colonize_button.set_visible(true)
-	else:
+	description_label.set_text(planet.get_explored_description())
+	if planet.get_biome() != "None":
+		destroy_button.set_visible(true)
+	if planet.get_biome() != "MotherLand":
+		colonize_button.set_visible(true)
+	
+	if planet.get_itch_link() != "":
 		image_itch_node.set_visible(true)
-		destroy_button.set_visible(false)
-		colonize_button.set_visible(false)
+	else:
+		image_itch_node.set_visible(false)
+	if planet.get_portfolio_link() != "":
+		pass
+		image_portfolio_node.set_visible(true)
+	else:
+		image_portfolio_node.set_visible(false)
 	
 	top_right_node.set_visible(true)
 	for i in children_array.size():
@@ -100,6 +107,9 @@ func colonize_planet() -> void:
 func shake() -> void:
 	emit_signal("screen_shake")
 
+func rewind_HUD() -> void:
+	animation_player.play("transition")
+
 #### INPUTS ####
 func _on_skip_panel_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") and skip_panel.is_visible():
@@ -124,11 +134,11 @@ func _on_yes_button_gui_input(event: InputEvent) -> void:
 
 func _on_itch_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click") and image_itch_node.is_visible():
-		OS.shell_open(planet.get_link())
-		if planet.get_biome() != "None":
-			destroy_button.set_visible(true)
-		if planet.get_biome() != "MotherLand":
-			colonize_button.set_visible(true)
+		OS.shell_open(planet.get_itch_link())
+
+func _on_portfolio_button_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click") and image_itch_node.is_visible():
+		OS.shell_open(planet.get_portfolio_link())
 
 func _on_colonize_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click") and colonize_button:
