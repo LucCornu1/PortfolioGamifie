@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Levels/LevelBase.gd"
 }, {
+"base": "LevelBase",
+"class": "Level_0",
+"language": "GDScript",
+"path": "res://Scenes/Levels/StellarSystem/Level_0.gd"
+}, {
 "base": "Option",
 "class": "LinkedInOption",
 "language": "GDScript",
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "CharacterIdleState": "",
 "CharacterMoveState": "",
 "LevelBase": "",
+"Level_0": "",
 "LinkedInOption": "",
 "MapOption": "",
 "NextOption": "",

@@ -7,11 +7,12 @@ func get_class() -> String: return "PlayerHUD"
 onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 onready var name_label : Label = get_node("BottomMiddle/ObjectName/Name")
 onready var title_label : Label = get_node("TopLeft/ObjectDescription/Title")
-onready var decription_label : Label = get_node("TopLeft/ObjectDescription/Description")
+onready var description_label : Label = get_node("TopLeft/ObjectDescription/Description")
 onready var skip_panel : Panel = get_node("BottomRight/Skip")
 onready var explore_button_panel : Panel = get_node("TopLeft/ExploreButton")
+onready var explore_label : Label = get_node("TopLeft/ExploreButton/Label")
 onready var top_right_node : Control = get_node("TopRight")
-onready var image_control_node : Control = get_node("TopRight/ImgControl")
+onready var image_control_node : Control = get_node("TopRight/Background_Image/ImgControl")
 onready var image_itch_node : TextureRect = get_node("TopRight/Itchio")
 onready var colonize_button : Panel = get_node("TopRight/Colonize")
 onready var destroy_button : Panel = get_node("TopRight/Destroy")
@@ -46,7 +47,7 @@ func show_name(name : String, title : String, description : String) -> void:
 	animation_player.play("transition")
 	set_label_text(name, name_label)
 	set_label_text(title, title_label)
-	set_label_text(description, decription_label)
+	set_label_text(description, description_label)
 
 func hide_name() -> void:
 	animation_player.play_backwards("transition")
@@ -59,6 +60,7 @@ func set_label_text(new_text : String, label_node : Label) -> void:
 func show_planet_informations(object_scan : Planet) -> void:
 	var ressource_path_array : Array = object_scan.get_ressource_path_array()
 	var children_array : Array = image_control_node.get_children()
+	description_label.set_text(object_scan.get_explored_description())
 	planet = object_scan
 	if planet.get_link() == "":
 		image_itch_node.set_visible(false)
@@ -105,7 +107,12 @@ func _on_skip_panel_gui_input(event : InputEvent) -> void:
 
 func _on_explore_button_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") and explore_button_panel.is_visible():
-		emit_signal("planet_explored")
+		if explore_label.get_text() == "EXPLORE":
+			explore_label.set_text("LEAVE")
+			emit_signal("planet_explored")
+		else:
+			explore_label.set_text("EXPLORE")
+			hide_name()
 
 func _on_no_button_gui_input(event : InputEvent) -> void:
 	if event.is_action_pressed("left_click") and center_control_node.is_visible():
